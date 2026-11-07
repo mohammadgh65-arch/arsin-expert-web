@@ -749,7 +749,7 @@ function goBackInsideApp(){
 }
 window.goBackInsideApp=goBackInsideApp;
 const PERMANENTLY_REMOVED_CASES=new Set(["1405114415504005067","1405114415504005171","1405114415504005227","1405114415504005343","1405114415504005388","1405114415504005407","1405114415504005409","1405114415504005423","1405114415504005464","1405114415504005491","1405114415504005501","1405114415504005504","1405114415504005507","1405114415504005529","1405114415504005662"]);
-function normalizePermanentCaseNo(v){return String(v??'').trim().replace(/[۰-۹]/g,d=>String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d))).replace(/[٠-٩]/g,d=>String('٠١٢٣٤٥٦٧٨٩'.indexOf(d))).replace(/[\\s\\u200c\\u200e\\u200f]/g,'');}
+function normalizePermanentCaseNo(v){return String(v??'').trim().replace(/[۰-۹]/g,d=>String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d))).replace(/[٠-٩]/g,d=>String('٠١٢٣٤٥٦٧٨٩'.indexOf(d))).replace(/[\s\u200c\u200e\u200f]/g,'');}
 function purgePermanentlyRemovedCases(){if(!Array.isArray(state.cases))state.cases=[];state.cases=state.cases.filter(c=>!PERMANENTLY_REMOVED_CASES.has(normalizePermanentCaseNo(c?.referral_no||c?.case_no||c?.case_number)));const live=new Set(state.cases.map(c=>String(c.id||c.referral_no||'')));state.selectedCaseIds=(state.selectedCaseIds||[]).filter(id=>live.has(String(id)));}
 function save(){purgePermanentlyRemovedCases();localStorage.setItem(currentStore(),JSON.stringify(state))}
 function load(){try{state={...state,...JSON.parse(localStorage.getItem(currentStore())||'{}')}}catch(e){} state.sound=true;purgePermanentlyRemovedCases();try{localStorage.setItem(currentStore(),JSON.stringify(state))}catch(e){} }
