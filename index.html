@@ -602,7 +602,7 @@ body:not(.expert-authenticated) #app{display:none!important}
  <h2 style="margin-top:0">ورود کارشناس</h2>
  <div class="notice login-brief">با حساب کاربری خود وارد شوید تا پرونده‌های ارجاع‌شده به شما را مشاهده و پیگیری کنید.</div>
  <div id="expertLoginAnnouncement" class="notice" hidden role="status" aria-live="polite" style="margin:10px 0;border:1px solid #e2b95c;background:rgba(226,185,92,.12);padding:12px;border-radius:12px"><strong id="expertLoginAnnouncementTitle" style="display:block;margin-bottom:6px"></strong><div id="expertLoginAnnouncementBody" style="white-space:pre-wrap;line-height:1.9"></div><small id="expertLoginAnnouncementDate" style="display:block;margin-top:7px;opacity:.8"></small><button type="button" id="expertAnnouncementAck" class="announcement-ack">متوجه شدم</button></div>
- <div id="expertWebDownloads"><strong>نسخه‌های جدید سامانه کارشناس</strong><div class="download-actions"><a href="https://arsinexpert-downloads.pages.dev/arsin-expert.apk" target="_blank" rel="noopener">دانلود جدیدترین APK</a></div><small>این بخش فقط در نسخه وب نمایش داده می‌شود و داخل APK فعال نیست.</small></div>
+ <div id="expertWebDownloads"><strong>نسخه‌های جدید سامانه کارشناس</strong><div class="download-actions"><a href="https://download.arsinssaa.ir/arsin-expert.apk" target="_blank" rel="noopener">دانلود جدیدترین APK</a></div><small>این بخش فقط در نسخه وب نمایش داده می‌شود و داخل APK فعال نیست.</small></div>
  <label>ایمیل حساب کارشناس</label>
  <input id="loginId" type="email" autocomplete="username" placeholder="ایمیل حساب">
  <label>رمز عبور</label>
@@ -2659,7 +2659,7 @@ input::placeholder, textarea::placeholder { color:#687A6D !important; opacity:1 
     var title=document.createElement("strong");title.textContent="نسخه جدید سامانه آرسین منتشر شده است";
     var detail=document.createElement("div");detail.textContent="نسخه "+(m.webVersionName||m.versionName||"جدید")+" آماده دریافت است.";
     var reload=document.createElement("button");reload.type="button";reload.textContent="بارگذاری نسخه جدید";reload.style.cssText="margin:8px 6px 0 0;padding:8px 12px;border:0;border-radius:8px;background:#22d3c5;color:#08232c;font-weight:800";reload.onclick=function(){location.reload();};
-    var apk=document.createElement("a");apk.href=m.apkUrl||"https://arsinexpert-downloads.pages.dev/arsin-expert.apk";apk.textContent="دریافت APK جدید";apk.style.cssText="display:inline-block;margin:8px 6px 0 0;padding:8px 12px;border-radius:8px;background:#d8f6f2;color:#06434a;text-decoration:none;font-weight:800";
+    var apk=document.createElement("a");apk.href=m.apkUrl||"https://download.arsinssaa.ir/arsin-expert.apk";apk.textContent="دریافت APK جدید";apk.style.cssText="display:inline-block;margin:8px 6px 0 0;padding:8px 12px;border-radius:8px;background:#d8f6f2;color:#06434a;text-decoration:none;font-weight:800";
     box.append(title,detail,reload,apk);document.body.appendChild(box);
   }).catch(function(){});
 })();
