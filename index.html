@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#101827">
-<meta name="arsin-version" content="EXPERT-V1.207-PERMANENT-REMOVAL-OF-15-INVALID-CASES">
-<title>آرسین | پنل کارشناس - نسخه ۲۰۷</title>
+<meta name="arsin-version" content="EXPERT-V1.229-AUTO-UPDATE">
+<meta name="arsin-version-code" content="229">
+<title>آرسین | پنل کارشناس - نسخه ۲۲۹</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f7fb;color:#172033;font-family:Tahoma,Arial,sans-serif}
 .wrap{max-width:720px;margin:auto}header{background:#101827;color:#fff;padding:20px 16px;border-radius:0 0 22px 22px}
@@ -502,6 +503,11 @@ body:not(.expert-authenticated) #app{display:none!important}
 .release-announcement .ra-meta{font-size:10px;color:#71869b;margin-top:7px}
 .release-announcement .ra-ack{background:#155b91;color:#fff;padding:8px 12px;margin-top:10px;font-size:11px}
 .release-announcement.is-acknowledged{display:none!important}
+#expertLoginAnnouncement .announcement-ack{display:inline-block;margin-top:10px;padding:8px 14px;border-radius:9px;background:#176b75;color:#fff;border:1px solid #46c8bd;font-weight:800}
+#expertWebDownloads{margin:10px 0 16px;padding:12px;border:1px solid #34717c;border-radius:13px;background:linear-gradient(135deg,#142d43,#10283a);color:#effcff}
+#expertWebDownloads .download-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+#expertWebDownloads a{display:inline-block;padding:9px 12px;border-radius:9px;text-decoration:none;font-weight:800;background:#168d9b;color:#06212a;border:1px solid #70eee2}
+#expertWebDownloads small{display:block;margin-top:6px;color:#b9d6df;line-height:1.8}
 </style>
 <style id="jalali-receipt-calendar-style">.jalali-date-field{display:flex;gap:7px;align-items:center}.jalali-date-field input{flex:1;min-width:0}.jalali-date-field button{min-width:46px;margin:0}.jalali-calendar{margin-top:8px;padding:12px;border:1px solid #cbd5e1;border-radius:14px;background:#fff;box-shadow:0 8px 24px #0002}.jalali-calendar.hidden{display:none!important}.jc-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}.jc-head button{padding:7px 11px}.jc-month{font-weight:900;font-size:13px}.jc-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.jc-week,.jc-day{text-align:center;padding:8px 2px;font-size:12px;border-radius:8px}.jc-week{color:#64748b;font-weight:800}.jc-day{background:#f1f5f9;color:#172033;min-height:35px}.jc-day.selected{background:#1769e0;color:#fff;font-weight:900}.jc-day.today{outline:1px solid #1769e0}.jc-day.empty{background:transparent}</style><style id="arsin-financial-history-cards-v193">
 #financialReceiptsSection{padding:20px!important;border:2px solid #315e50!important;box-shadow:0 10px 28px rgba(36,72,61,.12)!important}
@@ -532,20 +538,49 @@ body:not(.expert-authenticated) #app{display:none!important}
 #financialReceiptsSection .receipt-case-select{display:block!important;width:100%;min-height:44px;padding:9px 12px;border:1px solid var(--rt-input-border,#cbd5e1);border-radius:10px;background:var(--rt-input-bg,#fff);color:var(--rt-app-text,#172033);font:inherit;font-size:13px}
 #financialReceiptsSection .receipt-case-select option:disabled{color:#999}
 #financialReceiptsSection .receipt-picker-legend{font-size:10px;line-height:1.7;margin-top:6px;color:var(--rt-app-text,#172033);opacity:.72}
-</style><style id="arsin-expert-notices-v205">
-#expertNoticesPanel{margin:10px 0!important;padding:0!important;border:1px solid #31566c!important;background:linear-gradient(145deg,#142a3e,#0e1e30)!important}
-#expertNoticesPanel details{padding:0}
-#expertNoticesPanel summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 13px;cursor:pointer;font-size:13px;font-weight:800;color:#8ff5e8}
-#expertNoticesPanel summary::-webkit-details-marker{display:none}
-#expertNoticeBadge{font-size:10px;padding:4px 8px;border-radius:20px;background:#173e50;color:#a8fff2;border:1px solid #356c7a;white-space:nowrap}
-#expertNoticesList{padding:0 11px 11px}
-.expert-notice-item{padding:10px 11px;margin-top:8px;border:1px solid #31566c;border-radius:10px;background:#102236;color:#edf8fc}
-.expert-notice-item.unread{border-right:3px solid #37d6c4}
-.expert-notice-item strong{display:block;font-size:12px;color:#8ff5e8;margin-bottom:4px}
-.expert-notice-item p{font-size:12px;line-height:1.9;white-space:pre-wrap;margin:0;color:#e4f1f6}
-.expert-notice-item small{display:block;margin-top:5px;color:#9bb4c2;font-size:10px}
-.expert-notice-item button{margin-top:7px;padding:5px 9px;font-size:10px;background:#193b4e;color:#a8fff2;border:1px solid #356c7a;border-radius:8px}
 </style>
+<style id="expert-login-announcement-v208">
+/* فقط ظاهر کادر اطلاعیه منتشرشده توسط دبیر در صفحه ورود */
+#expertLoginAnnouncement{position:relative!important;overflow:hidden!important;margin:14px 0 16px!important;padding:15px 15px 14px!important;border:1.5px solid #22d3c5!important;border-right:5px solid #22d3c5!important;border-radius:16px!important;background:linear-gradient(125deg,rgba(9,35,55,.98),rgba(10,58,75,.97) 58%,rgba(13,75,82,.96))!important;color:#f4ffff!important;box-shadow:0 0 0 1px rgba(34,211,197,.12),0 8px 24px rgba(0,0,0,.22),0 0 20px rgba(34,211,197,.16)!important}
+#expertLoginAnnouncement:before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:linear-gradient(180deg,#facc15,#fb923c);opacity:.95}
+#expertLoginAnnouncementTitle{color:#ffe08a!important;font-size:14px!important;font-weight:900!important;line-height:1.9!important}
+#expertLoginAnnouncementTitle:before{content:"🔔  "}
+#expertLoginAnnouncementBody{color:#f4ffff!important;font-size:13px!important;font-weight:500!important;line-height:2.05!important;overflow-wrap:anywhere}
+#expertLoginAnnouncementDate{color:#a9e8e2!important;font-size:10px!important}
+@media(max-width:480px){#expertLoginAnnouncement{padding:13px 12px!important;margin:12px 0 14px!important}#expertLoginAnnouncementTitle{font-size:13px!important}#expertLoginAnnouncementBody{font-size:12px!important}}
+</style>
+
+
+<style id="experimental-report-form-v212">
+ .report-lab{grid-column:1/-1;margin-top:14px;padding:14px;border:1.5px solid #0faaa5;border-radius:15px;background:linear-gradient(145deg,#e8fbfa,#dff5f4);color:#123b46;box-shadow:0 5px 18px rgba(5,90,95,.10)}.report-lab h3{margin:0 0 8px;padding:11px 13px;font-size:16px;color:#f0ffff;background:linear-gradient(110deg,#075e63,#087f86);border-radius:11px}.report-lab .lab-note{font-size:11px;line-height:1.9;color:#244b55;background:#d2f1ef;border:1px solid #83cfca;border-right:4px solid #0b9995;border-radius:10px;padding:9px;margin:8px 0 12px}.report-lab .report-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.report-lab .report-grid h4{grid-column:1/-1;margin:13px 0 2px;padding:9px 11px;color:#eaffff;background:#087f86;border:1px solid #05656c;border-radius:9px;font-size:13px}.report-lab .report-field{min-width:0;padding:8px;background:#f5ffff;border:1px solid #a5d9d6;border-radius:10px}.report-lab label{display:block;font-weight:800;color:#075e63;margin:1px 0 7px;font-size:12px}.report-lab textarea,.report-lab input,.report-lab select{box-sizing:border-box;width:100%;min-height:42px;padding:10px;border:1.5px solid #83bfbd;border-radius:9px;background:#fff;color:#153d48;font:13px Tahoma,Arial;resize:vertical;outline:none}.report-lab textarea{min-height:78px;line-height:1.9}.report-lab textarea:focus,.report-lab input:focus,.report-lab select:focus{border-color:#008e91;box-shadow:0 0 0 3px rgba(0,142,145,.15)}.report-lab .wide{grid-column:1/-1}.report-lab .lab-send{background:#146b45!important;color:#fff!important;border:1px solid #0e5738!important}.lab-send:disabled{opacity:.65!important;cursor:wait!important}.lab-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.report-lab .lab-actions button{flex:1;min-width:125px}.report-lab .lab-save{background:#087f75;color:#fff}.report-lab .lab-clear{background:#d3e9e8;color:#174b52;border:1px solid #91c7c4}.report-lab .lab-state{font-size:11px;font-weight:800;margin-top:9px;color:#075e63;min-height:18px}.report-lab .lab-readonly{background:#d8f2f0;color:#174b52}.report-lab .required-hint{font-size:10px;color:#416a70;margin-top:4px}.report-lab [hidden]{display:none!important}@media(max-width:560px){.report-lab .report-grid{grid-template-columns:1fr}.report-lab .wide{grid-column:auto}.report-lab .report-grid h4{grid-column:1}}
+</style>
+
+
+<style id="v215-official-report-print">
+#labPrintReport{direction:rtl;color:#111;background:#fff;font-family:Tahoma,Arial,sans-serif;font-size:12px;line-height:1.95}
+#labPrintReport .official-page{position:relative;background:#fff;color:#111;padding:10mm 13mm 16mm;min-height:265mm;box-sizing:border-box;direction:rtl;text-align:justify}
+#labPrintReport .official-center{text-align:center;line-height:1.9;margin:8px 0 16px}
+#labPrintReport .official-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+#labPrintReport p{margin:7px 0;line-height:1.95}
+#labPrintReport .official-footer{position:absolute;bottom:2mm;left:0;right:0;text-align:center;font-size:11px}
+#labPrintReport .official-sign{display:flex;justify-content:space-between;margin-top:26px;text-align:center}
+@media print{body *{visibility:hidden!important}#labPrintReport,#labPrintReport *{visibility:visible!important}#labPrintReport{position:absolute;left:0;top:0;width:100%;}#labPrintReport .official-page{page-break-after:always;break-after:page;height:277mm;min-height:277mm;overflow:hidden;padding:8mm 12mm 15mm}#labPrintReport .official-page:last-child{page-break-after:auto;break-after:auto}#experimentalReportLab{display:none!important}@page{size:A4;margin:0}}
+</style>
+
+<style id="v223-strong-green-report-fields">
+/* V223: force consistent green entry fields and darker labels */
+#experimentalReportLab .report-field{background:#F0FAF2!important;border:1.6px solid #329653!important;}
+#experimentalReportLab .report-field > label,
+#experimentalReportLab .report-field label{color:#064B25!important;font-weight:900!important;text-shadow:none!important;}
+#experimentalReportLab .report-field input:not([type="checkbox"]):not([type="radio"]),
+#experimentalReportLab .report-field textarea,
+#experimentalReportLab .report-field select{background-color:#DDF2E2!important;color:#153B22!important;border:1.8px solid #27834A!important;box-shadow:inset 0 1px 2px rgba(15,75,35,.06)!important;}
+#experimentalReportLab .report-field input:focus,
+#experimentalReportLab .report-field textarea:focus,
+#experimentalReportLab .report-field select:focus{background-color:#E7F7EA!important;border-color:#075F2C!important;outline:2px solid rgba(7,95,44,.20)!important;box-shadow:0 0 0 2px rgba(7,95,44,.10)!important;}
+#experimentalReportLab .report-section-toggle{color:#064B25!important;}
+</style>
+
 </head>
 <body>
 <div class="wrap">
@@ -566,7 +601,8 @@ body:not(.expert-authenticated) #app{display:none!important}
  </div>
  <h2 style="margin-top:0">ورود کارشناس</h2>
  <div class="notice login-brief">با حساب کاربری خود وارد شوید تا پرونده‌های ارجاع‌شده به شما را مشاهده و پیگیری کنید.</div>
- <div id="expertLoginAnnouncement" class="notice" hidden role="status" aria-live="polite" style="margin:10px 0;border:1px solid #e2b95c;background:rgba(226,185,92,.12);padding:12px;border-radius:12px"><strong id="expertLoginAnnouncementTitle" style="display:block;margin-bottom:6px"></strong><div id="expertLoginAnnouncementBody" style="white-space:pre-wrap;line-height:1.9"></div><small id="expertLoginAnnouncementDate" style="display:block;margin-top:7px;opacity:.8"></small></div>
+ <div id="expertLoginAnnouncement" class="notice" hidden role="status" aria-live="polite" style="margin:10px 0;border:1px solid #e2b95c;background:rgba(226,185,92,.12);padding:12px;border-radius:12px"><strong id="expertLoginAnnouncementTitle" style="display:block;margin-bottom:6px"></strong><div id="expertLoginAnnouncementBody" style="white-space:pre-wrap;line-height:1.9"></div><small id="expertLoginAnnouncementDate" style="display:block;margin-top:7px;opacity:.8"></small><button type="button" id="expertAnnouncementAck" class="announcement-ack">متوجه شدم</button></div>
+ <div id="expertWebDownloads"><strong>نسخه‌های جدید سامانه کارشناس</strong><div class="download-actions"><a href="https://arsinexpert-downloads.pages.dev/arsin-expert.apk" target="_blank" rel="noopener">دانلود جدیدترین APK</a></div><small>این بخش فقط در نسخه وب نمایش داده می‌شود و داخل APK فعال نیست.</small></div>
  <label>ایمیل حساب کارشناس</label>
  <input id="loginId" type="email" autocomplete="username" placeholder="ایمیل حساب">
  <label>رمز عبور</label>
@@ -574,7 +610,6 @@ body:not(.expert-authenticated) #app{display:none!important}
  <label style="display:flex;align-items:center;gap:7px;font-size:12px"><input id="remember" type="checkbox" style="width:auto"> ورود من را به خاطر بسپار</label>
  <button id="expertLoginButton" class="primary" type="button">ورود آنلاین</button>
  <div id="loginMsg" class="muted" style="margin-top:9px"></div>
- <a id="arsinApkDownloadLink" href="https://download.arsinssaa.ir/arsin-expert.apk" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;padding:13px 12px;border:1px solid #0b7774;border-radius:12px;background:linear-gradient(135deg,#e5fbf7,#d7f3ee);color:#075e59;text-decoration:none;font-size:13px;font-weight:900">⬇ دانلود آخرین نسخه برنامه کارشناس (APK)</a>
 </section>
 
 <section id="app" class="hidden">
@@ -595,12 +630,6 @@ body:not(.expert-authenticated) #app{display:none!important}
   <div class="stat"><small>اعلان جدید</small><b id="newCount">۰</b></div>
   <div class="stat summary-stat"><small id="amountTotalLabel">جمع مبلغ پرونده‌ها</small><b id="amountTotal" class="amount-total">۰ تومان</b></div>
  </div>
- <section class="card app-panel" id="expertNoticesPanel" data-app-section="home">
-  <details id="expertNoticesDetails">
-   <summary><span>📣 اطلاعیه‌های دبیر</span><span id="expertNoticeBadge">در حال بررسی…</span></summary>
-   <div id="expertNoticesList"><div class="muted" style="font-size:11px;padding:8px">در حال دریافت اطلاعیه‌ها…</div></div>
-  </details>
- </section>
  <div class="card app-panel" id="casesPanel" data-app-section="cases">
   <div class="row" style="flex-wrap:wrap"><strong>پرونده‌ها و سوابق آرسین</strong><button class="secondary export-reveal" type="button" id="toggleExportOptions" aria-expanded="false" aria-controls="exportOptions" onclick="toggleExportOptions()">⬇ خروجی و امکانات پرونده‌ها</button></div>
  <div id="exportOptions" class="export-options hidden">
@@ -655,29 +684,44 @@ body:not(.expert-authenticated) #app{display:none!important}
 <div id="toast" class="toast"></div>
 <div id="remoteThemeState" aria-live="polite"></div>
 
+<script>
+/* اطلاعیه نسخه وب مستقل از بارگذاری کتابخانه‌های خارجی اجرا می‌شود. */
+(function(){
+ function showExpertWebAnnouncement(){
+  var box=document.getElementById('expertLoginAnnouncement');
+  var downloads=document.getElementById('expertWebDownloads');
+  if(!box)return;
+  var nativeApp=!!(window.AndroidAPI && typeof window.AndroidAPI.showNotification==='function');
+  if(nativeApp){
+   box.hidden=true;box.style.setProperty('display','none','important');
+   if(downloads)downloads.hidden=true;
+   return;
+  }
+  if(downloads)downloads.hidden=false;
+  var ackKey='arsin_expert_login_announcement_ack_v229_web_fix1';
+  try{if(localStorage.getItem(ackKey)==='1'){box.hidden=true;box.style.setProperty('display','none','important');return;}}catch(e){}
+  var title=document.getElementById('expertLoginAnnouncementTitle');
+  var body=document.getElementById('expertLoginAnnouncementBody');
+  var date=document.getElementById('expertLoginAnnouncementDate');
+  if(title)title.textContent='اطلاعیه‌های سامانه آرسین';
+  if(body)body.textContent='• نسخه جدید سامانه منتشر شده است؛ برای دریافت آخرین نسخه، از دکمه دانلود جدیدترین APK استفاده کنید.\\n• پیش از ثبت گزارش کارشناسی، اطلاعات پرونده و ارجاع را بررسی کنید.\\n• در صورت بروز اختلال، موضوع را به دبیرخانه اطلاع دهید.';
+  if(date)date.textContent='';
+  var ack=document.getElementById('expertAnnouncementAck');
+  if(ack)ack.onclick=function(){try{localStorage.setItem(ackKey,'1');}catch(e){}box.hidden=true;box.style.setProperty('display','none','important');};
+  box.hidden=false;
+  box.style.setProperty('display','block','important');
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',showExpertWebAnnouncement,{once:true});
+ else showExpertWebAnnouncement();
+})();
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script>
 const SUPABASE_URL='https://cwwmvpcggsdfmaofokep.supabase.co';
 const SUPABASE_KEY='sb_publishable_gcDzQ2Mm1QYpfOLPu5tDPA_Xx46sW_c';
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
-async function loadExpertLoginAnnouncement(){
- const box=document.getElementById('expertLoginAnnouncement');
- if(!box)return;
- try{
-  const now=new Date().toISOString();
-  const q=await sb.from('expert_login_announcements').select('title,body,created_at,starts_at,ends_at').eq('is_published',true).lte('starts_at',now).or('ends_at.is.null,ends_at.gt.'+now).order('starts_at',{ascending:false}).limit(1).maybeSingle();
-  if(q.error)throw q.error;
-  const row=q.data;
-  if(!row){box.hidden=true;return;}
-  document.getElementById('expertLoginAnnouncementTitle').textContent=row.title||'اطلاعیه سامانه';
-  document.getElementById('expertLoginAnnouncementBody').textContent=row.body||'';
-  const date=document.getElementById('expertLoginAnnouncementDate');
-  date.textContent=row.created_at?'تاریخ انتشار: '+new Date(row.created_at).toLocaleDateString('fa-IR'):'';
-  box.hidden=false;
- }catch(err){console.warn('public login announcement unavailable',err);box.hidden=true;}
-}
-loadExpertLoginAnnouncement();
+
 
 const STORE_BASE='expert_notice_v3';
 function storeKey(userId){ return STORE_BASE+'_'+String(userId||'guest'); }
@@ -748,11 +792,8 @@ function goBackInsideApp(){
  navigateSection(previous||'home',true);
 }
 window.goBackInsideApp=goBackInsideApp;
-const PERMANENTLY_REMOVED_CASES=new Set(["1405114415504005067","1405114415504005171","1405114415504005227","1405114415504005343","1405114415504005388","1405114415504005407","1405114415504005409","1405114415504005423","1405114415504005464","1405114415504005491","1405114415504005501","1405114415504005504","1405114415504005507","1405114415504005529","1405114415504005662"]);
-function normalizePermanentCaseNo(v){return String(v??'').trim().replace(/[۰-۹]/g,d=>String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d))).replace(/[٠-٩]/g,d=>String('٠١٢٣٤٥٦٧٨٩'.indexOf(d))).replace(/[\s\u200c\u200e\u200f]/g,'');}
-function purgePermanentlyRemovedCases(){if(!Array.isArray(state.cases))state.cases=[];state.cases=state.cases.filter(c=>!PERMANENTLY_REMOVED_CASES.has(normalizePermanentCaseNo(c?.referral_no||c?.case_no||c?.case_number)));const live=new Set(state.cases.map(c=>String(c.id||c.referral_no||'')));state.selectedCaseIds=(state.selectedCaseIds||[]).filter(id=>live.has(String(id)));}
-function save(){purgePermanentlyRemovedCases();localStorage.setItem(currentStore(),JSON.stringify(state))}
-function load(){try{state={...state,...JSON.parse(localStorage.getItem(currentStore())||'{}')}}catch(e){} state.sound=true;purgePermanentlyRemovedCases();try{localStorage.setItem(currentStore(),JSON.stringify(state))}catch(e){} }
+function save(){localStorage.setItem(currentStore(),JSON.stringify(state))}
+function load(){try{state={...state,...JSON.parse(localStorage.getItem(currentStore())||'{}')}}catch(e){} state.sound=true;}
 function showApp(){
  document.body.classList.add('expert-authenticated');
  document.getElementById('login').classList.add('hidden');
@@ -809,6 +850,9 @@ async function login(){
   msg.textContent=e.message||'ورود ناموفق بود.';
  }
 }
+// Explicitly expose the login entry point for Android WebView and delegated handlers.
+window.login = login;
+
 async function logout(){
  document.body.classList.remove('expert-authenticated');
  stopRemoteThemeEngine();
@@ -838,6 +882,7 @@ async function pullExpertCases(silent=false){
   }
   incoming=incoming
     .filter(x=>!x.expert_user_id || String(x.expert_user_id)===String(session.user.id))
+    .filter(x=>normalizeCaseNo(x.referral_no)!==normalizeCaseNo('1405114415504003256'))
     .sort((a,b)=>new Date(b.assigned_at||b.created_at||0)-new Date(a.assigned_at||a.created_at||0));
   // همگام‌سازی وضعیت تأیید دبیر: ابتدا RPC و سپس fallback مستقیم به جدول کنترل تحویل.
   try{
@@ -924,7 +969,8 @@ function setCurrentJalaliMonth(){const j=currentJalali();document.getElementById
 function clearDateRange(){document.getElementById('excelFromDate').value='';document.getElementById('excelToDate').value='';render();}
 function currentDateBounds(){const fromEl=document.getElementById('excelFromDate'),toEl=document.getElementById('excelToDate');const from=jalaliToKey(fromEl?.value),to=jalaliToKey(toEl?.value);if((fromEl?.value&&!from)||(toEl?.value&&!to)){return {error:'تاریخ شمسی را به شکل ۱۴۰۵/۰۱/۰۱ وارد کنید'};}if(from&&to&&from>to){return {error:'تاریخ «از» نباید بعد از تاریخ «تا» باشد'};}return {from,to};}
 function casesInDateRange(){const b=currentDateBounds();if(b.error){notify(b.error);return null;}return state.cases.filter(c=>{const d=dateOf(c);if(b.from&&(!d||d<b.from))return false;if(b.to&&(!d||d>b.to))return false;return true;});}
-function caseKey(c){return String(c.id||c.referral_no||'');}
+function normalizeCaseNo(v){return String(v??'').trim().replace(/[۰-۹٠-٩]/g,d=>{const p='۰۱۲۳۴۵۶۷۸۹',a='٠١٢٣٤٥٦٧٨٩',i=p.indexOf(d);return String(i>=0?i:a.indexOf(d));}).replace(/[\s\u200c\u200e\u200f-]+/g,'');}
+function caseKey(c){return String(c.id??c.referral_no??'');}
 function isCaseSelected(c){return (state.selectedCaseIds||[]).includes(caseKey(c));}
 function toggleCaseSelection(id,checked){const k=String(id);let a=new Set((state.selectedCaseIds||[]).map(String));checked?a.add(k):a.delete(k);state.selectedCaseIds=[...a];save();render();}
 function selectAllVisibleCases(){const arr=casesInDateRange();if(!arr)return;const a=new Set((state.selectedCaseIds||[]).map(String));arr.forEach(c=>a.add(caseKey(c)));state.selectedCaseIds=[...a];save();render();}
@@ -965,8 +1011,7 @@ function dashboardStatus(c){return String(c?.status||'new').toLowerCase();}
 function isClosedCase(c){if(c?.delivery_confirmation_status==='rejected')return false;return c?.delivery_confirmation_status==='confirmed'||['done','completed','complete','finished','closed','confirmed'].includes(dashboardStatus(c));}
 function dashboardDue(c){if(!c?.due_at)return null;const d=new Date(c.due_at);return Number.isNaN(d.getTime())?null:d;}
 function dashboardAssigned(c){const d=new Date(c?.assigned_at||c?.created_at||'');return Number.isNaN(d.getTime())?null:d;}
-function dashboardMatches(c,filter,now=new Date()){
- const st=dashboardStatus(c),due=dashboardDue(c),assigned=dashboardAssigned(c),closed=isClosedCase(c);
+function dashboardMatches(c,filter,now=new Date()){ const st=dashboardStatus(c),due=dashboardDue(c),assigned=dashboardAssigned(c),closed=isClosedCase(c);
  if(filter==='new')return st==='new';
  if(filter==='progress')return st==='in_progress';
  if(filter==='needs_review')return c?.delivery_confirmation_status==='rejected';
@@ -993,6 +1038,8 @@ function renderWorkbench(){
 }
 
 function render(){
+ // کلاسه‌ای که کاربر صریحاً خواسته حذف شود، از همه نماها و شمارنده‌ها کنار گذاشته می‌شود.
+ state.cases=(Array.isArray(state.cases)?state.cases:[]).filter(c=>normalizeCaseNo(c?.referral_no)!==normalizeCaseNo('1405114415504003256'));
  renderWorkbench();
  const q=(document.getElementById('search')?.value||'').trim().toLowerCase();
  const dateBounds=currentDateBounds();
@@ -1006,25 +1053,33 @@ function render(){
   const dot=status==='new'?'dot-new':(status==='seen'?'dot-seen':(status==='in_progress'?'dot-progress':(status==='done'?'dot-done':(status==='returned'?'dot-returned':'dot-default'))));
   const finalized=isClosedCase(c),late=!finalized&&ms!==null&&ms<0,near=!finalized&&ms!==null&&ms>=0&&ms<=2*86400000,deadline=finalized?(c.delivery_confirmation_status==='confirmed'?'تأیید نهایی دبیر':'انجام‌شده؛ مهلت متوقف'):due?(late?'معوق':`${Math.max(0,days)} روز`):'—',deadlineClass=finalized?'done':late?'overdue':near?'soon':'normal';
   const displayStatus=c.delivery_confirmation_status==='confirmed'?'تأیید نهایی دبیر':c.delivery_confirmation_status==='rejected'?'نیاز به بررسی مجدد':String(c.status||'ارجاعی');
-  return `<div class="case ${selected?'case-selected':''}" onclick="openCase('${esc(id)}')"><div class="row"><div class="case-main"><h3>${esc(c.referral_no||'—')}</h3></div><div class="case-select-box" onclick="event.stopPropagation()"><input class="case-select" type="checkbox" ${selected?'checked':''} aria-label="انتخاب پرونده ${esc(c.referral_no||'')} برای اکسل" onchange="toggleCaseSelection('${esc(id)}',this.checked)"></div><span class="badge ${late?'late':near?'new':'ok'}"><span class="status-dot ${dot}"></span>${esc(displayStatus)}</span></div><div class="meta"><b>متقاضی:</b> ${esc(c.applicant||'—')}<br><b>کلاسه:</b> ${esc(c.referral_no||'—')}<br><span class="amount-inline">مبلغ: ${c.amount!=null?Number(c.amount).toLocaleString('fa-IR')+' تومان':'ثبت نشده'}</span><br><b>مهلت:</b> <span class="deadline ${deadlineClass}">${deadline}</span></div></div>`;
+  return `<div class="case ${selected?'case-selected':''}" data-case-id="${esc(id)}" role="button" tabindex="0"><div class="row"><div class="case-main"><h3>${esc(c.referral_no||'—')}</h3></div><div class="case-select-box" onclick="event.stopPropagation()"><input class="case-select" type="checkbox" ${selected?'checked':''} aria-label="انتخاب پرونده ${esc(c.referral_no||'')} برای اکسل" onchange="toggleCaseSelection('${esc(id)}',this.checked)"></div><span class="badge ${late?'late':near?'new':'ok'}"><span class="status-dot ${dot}"></span>${esc(displayStatus)}</span></div><div class="meta"><b>متقاضی:</b> ${esc(c.applicant||'—')}<br><b>کلاسه:</b> ${esc(c.referral_no||'—')}<br><span class="amount-inline">مبلغ: ${c.amount!=null?Number(c.amount).toLocaleString('fa-IR')+' تومان':'ثبت نشده'}</span><br><b>مهلت:</b> <span class="deadline ${deadlineClass}">${deadline}</span></div></div>`;
  }).join('');
  updateSelectionSummary();
 }
 
-async function openCase(id){
- const c=state.cases.find(x=>String(x.id||x.referral_no||'')===String(id)); if(!c)return;
- // به محض رویت پرونده توسط کارشناس، وضعیت مستقیماً «در حال بررسی» می‌شود.
- const currentStatus=String(c.status||'new').toLowerCase();
- if(currentStatus==='new'||currentStatus==='seen'){
-  const rowId=c.id;
-  if(rowId){
-   try{
-    const {error}=await sb.rpc('expert_start_referral',{p_referral_id:rowId});
-    if(error){notify('ثبت شروع بررسی انجام نشد؛ جزئیات پرونده باز می‌شود. برای نهایی‌کردن، دکمه انجام شد را بزنید. '+error.message);}
-    else {c.status='in_progress';c.started_at=new Date().toISOString();save();render();}
-   }catch(e){notify('خطا در ثبت شروع بررسی؛ جزئیات پرونده باز می‌شود. '+(e?.message||''));}
-  }
- }
+// بازکردن پرونده با شناسه ثابت از طریق event delegation؛ بدون ساختن کد onclick پویا.
+if(!window.__ARSIN_CASE_OPEN_HANDLER__){
+ window.__ARSIN_CASE_OPEN_HANDLER__=true;
+ document.addEventListener('click',e=>{
+  if(e.target.closest('.case-select-box'))return;
+  const card=e.target.closest('.case[data-case-id]');
+  if(card){e.preventDefault();e.stopPropagation();openCase(card.dataset.caseId);}
+ });
+ document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter'&&e.key!==' ')return;
+  const card=e.target.closest?.('.case[data-case-id]');
+  if(card){e.preventDefault();e.stopPropagation();openCase(card.dataset.caseId);}
+ });
+}
+
+function openCase(id){
+ const wanted=String(id??'').trim();
+ // شناسه داخلی همیشه بر شماره کلاسه اولویت دارد؛ از تطبیق اشتباه دو پرونده جلوگیری می‌شود.
+ const rows=Array.isArray(state.cases)?state.cases:[];
+ let c=rows.find(x=>x?.id!=null && String(x.id)===wanted);
+ if(!c) c=rows.find(x=>x?.id==null && String(x?.referral_no??'').trim()===wanted);
+ if(!c){notify('پرونده با شناسه انتخاب‌شده پیدا نشد؛ فهرست را به‌روزرسانی کنید.');return false;}
  document.getElementById('caseDetails').innerHTML=`
  <div class="detailitem"><small>کلاسه / شماره پرونده</small><b>${esc(c.referral_no||'—')}</b></div>
  <div class="detailitem"><small>نام متقاضی</small><b>${esc(c.applicant||'—')}</b></div>
@@ -1043,9 +1098,130 @@ async function openCase(id){
  document.getElementById('caseDetails').innerHTML += `<div class="detailfull actions">${isDone&&!rejected?'<span class="badge ok">'+deliveryLabel+'</span>':`<button type="button" id="btnSetDone" class="primary">${rejected?'🔄 بررسی مجدد انجام شد؛ ارسال برای تأیید':'🟢 تأیید انجام شد'}</button><div class="muted" style="margin-top:6px">${rejected?'پس از اصلاح موارد اعلام‌شده، این دکمه را بزنید تا پرونده برای تأیید دوباره به دبیر ارسال شود.':'پس از ثبت، تحویل پرونده باید توسط دبیر تأیید شود.'}</div>${rejected?'<div class="notice" style="margin-top:8px">وضعیت اصلی پرونده تغییر نمی‌کند؛ فقط تحویل برای بررسی دوباره به دبیر ارسال می‌شود.</div>':''}`}</div>`;
  const doneButton=document.getElementById('btnSetDone');
  if(doneButton) doneButton.addEventListener('click',()=>setDone(c.id||c.referral_no));
- c._seen=true;save();
+ // فرم آزمایشی گزارش کارشناسی؛ ذخیره فقط در مرورگر همین دستگاه و بدون ارسال به سرور
+ document.getElementById('caseDetails').insertAdjacentHTML('beforeend', buildExperimentalReportForm(c));
+ updateReportPropertyFields();
  document.getElementById('caseModal').classList.remove('hidden');
+ // بازکردن جزئیات نباید اطلاعات پرونده را تغییر دهد یا با RPC پس‌زمینه‌ای فهرست را دوباره بسازد.
+ return true;
 }
+window.openCase=openCase;
+
+// ===== V218 EXACT OFFICIAL THREE-PAGE EXPERT REPORT =====
+function reportDraftKey(c){return 'arsin_expert_report_v217_'+String(c?.id||c?.referral_no||'unknown');}
+function buildExperimentalReportForm(c){
+ const key=reportDraftKey(c);let saved={};try{saved=JSON.parse(localStorage.getItem(key)||'{}')||{};}catch(e){}
+ const expertName=state.user?.name||state.user?.full_name||state.user?.display_name||'';
+ const auto={referral:c?.referral_no||'',applicant:c?.applicant||c?.applicant_name||'',area:c?.area??'',subject:c?.subject||'',expert:expertName,expert2:c?.paired_expert_name||''};
+ const F=[
+ ['reportNo','شماره گزارش'],['reportDate','تاریخ گزارش'],['orderNo','شماره قرار کارشناسی'],['orderDate','تاریخ قرار'],['expert','کارشناس منتخب اول',auto.expert],['expert2','کارشناس منتخب دوم',auto.expert2],['visitDate','تاریخ بازدید'],['visitorRole','سمت همراه بازدید','متقاضی'],['applicant','نام متقاضی',auto.applicant],['address','نشانی ملک'],['mapMatch','۱-۱ نتیجه تطبیق نقشه با وضع ملک'],['north','حد شمالی'],['east','حد شرقی'],['south','حد جنوبی'],['west','حد غربی'],['easement','حقوق ارتفاقی'],
+ ['northDetail','جزئیات حد فاصل شمالی'],['eastDetail','جزئیات حد فاصل شرقی'],['southDetail','جزئیات حد فاصل جنوبی'],['westDetail','جزئیات حد فاصل غربی'],
+ ['pieceNo','قطعه'],['subParcel','پلاک فرعی'],['mainParcel','پلاک اصلی'],['plotArea','مساحت مورد تقاضا (متر مربع)',auto.area],['wholePart','کل یا قسمتی از پلاک','قسمتی'],['possessionDescription','شرح تصرف و برابر بودن با سوابق'],['registryStatus','وضعیت ثبتی، آخرین مالک رسمی و نحوه خریداری'],
+ ['propertyType','نوع مورد تقاضا','ساختمان'],['buildingArea','مساحت اعیان (متر مربع)'],['buildingAge','قدمت ساختمان'],['electricity','شماره امتیاز برق'],['water','شماره امتیاز آب'],['gas','شماره امتیاز گاز'],['farmArea','مساحت زمین مزروعی'],['crop','نوع کشت'],['fence','دارای حصار','می‌باشد'],['gardenArea','مساحت باغ'],['fenceType','نوع دیوار حصار'],['fenceHeight','ارتفاع حصار (متر)'],['treeCount','تعداد درخت'],['treeType','نوع درخت'],['treeAge','قدمت تقریبی درختان (سال)'],['other3','سایر توضیحات بند ۳'],['value','ارزش عرصه و اعیان برابر قیمت منطقه‌ای'],['publicLand','ملک جزء اراضی دولتی، ملی و موات','نمی‌باشد'],['parcelLocation','پلاک واقع‌شده (فرعی / اصلی)'],['landHistory','پلاک سابقه ملی/دولتی/موات','ندارد'],['landHistoryExplain','توضیح سابقه ملی، دولتی یا موات'],
+ ['shareNumerator','میزان سهم مشاعی متقاضی'],['shareDenominator','از چند سهم شش‌دانگ'],['sharePlotArea','مساحت پلاک طبق سوابق پیوست'],['passageArea','مساحت جزء گذر'],['usefulArea','مساحت مفید'],['shareArea','میزان سهم متقاضی از پلاک (متر مربع)'],['currentPossession','میزان تصرف فعلی (متر مربع)'],['shareStatus','وضعیت تصرف نسبت به سهم مشاعی','equal'],['excessArea','میزان مازاد بر سهم (متر مربع)'],
+ ['claimantType','نوع ملک برای بند ۷','ساختمان'],['claimantArea','مساحت عرصه بند ۷',auto.area],['claimantPiece','قطعه بند ۷'],['claimantSub','پلاک فرعی بند ۷'],['claimantMain','پلاک اصلی بند ۷'],['block','بخش ثبتی'],['seller','خریداری از'],['other7','سایر توضیحات بند ۷']
+ ];
+ const savedVal=(id,def='')=>saved[id]!==undefined?saved[id]:(def??'');
+ const propertyGroup=(id)=>({buildingArea:'building',buildingAge:'building',electricity:'building',water:'building',gas:'building',farmArea:'farm',crop:'farm',fence:'farm',gardenArea:'garden',fenceType:'garden',fenceHeight:'garden',treeCount:'garden',treeType:'garden',treeAge:'garden'}[id]||'');
+ const fieldWrap=(id,body,wide=false)=>`<div class="report-field${wide?' wide':''}" ${propertyGroup(id)?`data-property-group="${propertyGroup(id)}"`:''}>${body}</div>`;
+ const input=(id,label,def='',type='text')=>fieldWrap(id,`<label>${label}</label><input data-report-field="${id}" type="${type}" value="${esc(savedVal(id,def))}" />`);
+ const areaText=(id,label,def='')=>fieldWrap(id,`<label>${label}</label><textarea data-report-field="${id}">${esc(savedVal(id,def))}</textarea>`,true);
+ const select=(id,label,opts,def='')=>fieldWrap(id,`<label>${label}</label><select data-report-field="${id}" ${id==='propertyType'?'onchange="updateReportPropertyFields()"':''}>${opts.map(x=>{const shown=id==='shareStatus'?({equal:'به اندازه سهم مشاعی',less:'کمتر از سهم مشاعی',excess:'بیشتر از سهم مشاعی'}[x]||x):x;return `<option value="${esc(x)}" ${savedVal(id,def)===x?'selected':''}>${esc(shown)}</option>`;}).join('')}</select>`);
+ let fields='';
+ fields+=`<h4 class="wide">اطلاعات اولیه و بند ۱</h4>`+input('reportNo','شماره گزارش')+input('reportDate','تاریخ گزارش')+input('orderNo','شماره قرار کارشناسی')+input('orderDate','تاریخ قرار')+input('expert','نام کارشناس اول',auto.expert)+input('expert2','نام کارشناس دوم',auto.expert2)+input('visitDate','تاریخ بازدید')+select('visitorRole','همراه بازدید',['متقاضی','وکیل متقاضی','نماینده قانونی'],'متقاضی')+input('applicant','نام متقاضی',auto.applicant)+areaText('address','نشانی ملک')+areaText('mapMatch','۱-۱ نقشه ارائه‌شده با وضعیت ملک مطابقت داده شده و ملاحظه گردیده که')+areaText('north','حدود جغرافیایی ـ شمالاً')+areaText('east','حدود جغرافیایی ـ شرقاً')+areaText('south','حدود جغرافیایی ـ جنوباً')+areaText('west','حدود جغرافیایی ـ غرباً')+areaText('easement','حقوق ارتفاقی ملک')+areaText('northDetail','حد فاصل و مشخصات مجاور شمالی')+areaText('eastDetail','حد فاصل و مشخصات مجاور شرقی')+areaText('southDetail','حد فاصل و مشخصات مجاور جنوبی')+areaText('westDetail','حد فاصل و مشخصات مجاور غربی');
+ fields+=`<h4 class="wide">بند ۲ ـ سوابق ثبتی و تصرف</h4>`+input('pieceNo','قطعه')+input('subParcel','پلاک فرعی')+input('mainParcel','پلاک اصلی')+input('plotArea','مساحت (متر مربع)',auto.area)+select('wholePart','نوع تعلق مساحت',['کل','قسمتی'],'قسمتی')+areaText('possessionDescription','شرح تصرف و عبارت برابر')+areaText('registryStatus','وضعیت ثبتی، آخرین مالک رسمی و نحوه خریداری');
+ fields+=`<h4 class="wide">بند ۳ ـ نوع و میزان مستحدثات و اعیان</h4>`+select('propertyType','نوع ملک',['ساختمان','زمین مزروعی','باغ'],'ساختمان')+input('buildingArea','مساحت اعیان (متر مربع)')+input('buildingAge','قدمت')+input('electricity','شماره برق')+input('water','شماره آب')+input('gas','شماره گاز')+input('farmArea','مساحت زمین مزروعی')+input('crop','نوع کشت')+select('fence','وضعیت حصار',['می‌باشد','نمی‌باشد'],'می‌باشد')+input('gardenArea','مساحت باغ')+input('fenceType','نوع دیوار حصار')+input('fenceHeight','ارتفاع حصار (متر)')+input('treeCount','تعداد اصله درخت')+input('treeType','نوع درخت')+input('treeAge','قدمت تقریبی (سال)')+areaText('other3','سایر توضیحات بند ۳');
+ fields+=`<h4 class="wide">بندهای ۴ و ۵ ـ ارزش و وضعیت اراضی</h4>`+areaText('value','ارزش عرصه و اعیان برابر قیمت منطقه‌ای')+select('publicLand','بند ۵-۱',['نمی‌باشد','می‌باشد'],'نمی‌باشد')+input('parcelLocation','بند ۵-۲ پلاک (فرعی / اصلی)')+select('landHistory','سابقه ملی/دولتی/موات',['ندارد','دارد'],'ندارد')+areaText('landHistoryExplain','توضیح سابقه (در صورت وجود)');
+ fields+=`<h4 class="wide">بند ۶ ـ فقط در مالکیت رسمی مشاعی تکمیل شود</h4>`+input('shareNumerator','میزان سهم مشاعی')+input('shareDenominator','از چند سهم شش‌دانگ')+input('sharePlotArea','مساحت پلاک طبق سوابق پیوست')+input('passageArea','مساحت جزء گذر')+input('usefulArea','مساحت مفید')+input('shareArea','میزان سهم متقاضی از پلاک (متر مربع)')+input('currentPossession','میزان تصرف فعلی (متر مربع)')+select('shareStatus','وضعیت تصرف',['equal','less','excess'],'equal')+input('excessArea','میزان مازاد بر سهم (متر مربع)');
+ fields+=`<h4 class="wide">بند ۷ ـ گواهی تصرفات</h4>`+select('claimantType','نوع ملک',['ساختمان','زمین مزروعی','باغ'],'ساختمان')+input('claimantArea','مساحت عرصه (متر مربع)',auto.area)+input('claimantPiece','قطعه')+input('claimantSub','پلاک فرعی')+input('claimantMain','پلاک اصلی')+input('block','بخش')+input('seller','خریداری از')+areaText('other7','سایر توضیحات بند ۷');
+ fields+=`<h4 class="wide">بند ۸ ـ مشخصات شهود</h4>`;
+ for(let i=1;i<=4;i++) fields+=input('w'+i+'name','شاهد '+i+' ـ نام')+input('w'+i+'father','نام پدر')+input('w'+i+'sh','شماره شناسنامه')+input('w'+i+'issue','صادره از')+input('w'+i+'nid','کد ملی');
+ const keyId=String(c?.id||c?.referral_no||'unknown');
+ const sectionParts=fields.split(/(?=<h4 class="wide">)/);
+ const groupedFields=sectionParts.map((part,index)=>{
+   const m=part.match(/^<h4 class="wide">([\s\S]*?)<\/h4>/);
+   if(!m)return part;
+   const title=m[1];
+   const body=part.slice(m[0].length);
+   const note=title.includes('بند ۶')?' (فقط در صورت مشاعی بودن ملک)':title.includes('بند ۸')?' (مشخصات شهود را وارد کنید)':'';
+   return `<section class="report-section ${index===0?'open':''}"><button type="button" class="report-section-toggle" aria-expanded="${index===0?'true':'false'}" onclick="toggleReportSection(this)"><span>${title}${note}</span><b class="report-section-arrow">${index===0?'−':'+'}</b></button><div class="report-section-body" ${index===0?'':'hidden'}>${body}</div></section>`;
+ }).join('');
+ return `<section class="report-lab" id="experimentalReportLab" data-caseid="${esc(keyId)}" data-referral="${esc(auto.referral)}" data-applicant="${esc(auto.applicant)}" data-area="${esc(auto.area)}" data-subject="${esc(auto.subject)}"><h3>فرم ساده تکمیل گزارش کارشناسی ـ نسخه ۲۲۰</h3><div class="lab-note"><b>راهنما:</b> اطلاعات خودکار از پرونده درج می‌شود. بخش‌ها را به‌ترتیب باز کنید و فقط اطلاعات مربوط به نوع ملک را وارد کنید. بند ۶ فقط برای مالکیت مشاعی است. کادرهای سبز محل ورود اطلاعات هستند.</div><div class="report-grid">${groupedFields}</div><div class="lab-actions"><button type="button" class="lab-save" onclick="generateExperimentalReportPreview()">نمایش گزارش سه‌صفحه‌ای</button><button type="button" class="lab-save" onclick="saveExperimentalReportDraft('${esc(keyId)}')">ذخیره پیش‌نویس</button><button type="button" class="lab-clear" onclick="printExperimentalReport()">چاپ گزارش</button><button type="button" class="lab-send" onclick="submitExperimentalReportToDabir('${esc(keyId)}')">ارسال گزارش به دبیر</button><button type="button" class="lab-clear" onclick="clearExperimentalReportDraft('${esc(keyId)}')">پاک‌کردن فرم</button></div><div class="lab-state" id="experimentalReportState">${saved.savedAt?'پیش‌نویس ذخیره‌شده در همین دستگاه':'اطلاعات پرونده به‌صورت خودکار درج شده است'}</div><div id="labFullDraftWrap" style="display:none;margin-top:12px"><div id="labPrintReport"></div></div></section>`;
+}
+function toggleReportSection(button){
+ const section=button?.closest('.report-section');if(!section)return;
+ const body=section.querySelector('.report-section-body');if(!body)return;
+ const opening=body.hidden;
+ body.hidden=!opening;section.classList.toggle('open',opening);
+ button.setAttribute('aria-expanded',opening?'true':'false');
+ const mark=button.querySelector('.report-section-arrow');if(mark)mark.textContent=opening?'−':'+';
+}
+function updateReportPropertyFields(){
+ const root=document.getElementById('experimentalReportLab');if(!root)return;
+ const type=root.querySelector('[data-report-field="propertyType"]')?.value||'ساختمان';
+ const active=type==='زمین مزروعی'?'farm':type==='باغ'?'garden':'building';
+ root.querySelectorAll('[data-property-group]').forEach(w=>{
+  const show=w.dataset.propertyGroup===active;w.hidden=!show;
+  w.querySelectorAll('input,select,textarea').forEach(el=>{el.disabled=!show;});
+ });
+}
+function reportVal(id){const el=document.querySelector(`#experimentalReportLab [data-report-field="${id}"]`);return el?String(el.value||'').trim():'';}
+function reportText(id){return reportVal(id)||'..................................';}
+function generateExperimentalReportPreview(){
+ const root=document.getElementById('experimentalReportLab');if(!root)return;
+ const v=reportText, applicant=v('applicant'), prop=v('propertyType');
+ const propertySentence=prop==='زمین مزروعی'?`مورد تقاضا بصورت یک قطعه زمین مزروعی به مساحت ${v('farmArea')} متر مربع است که زیر کشت ${v('crop')} قرار داشته و دارای حصار ${v('fence')} .`:prop==='باغ'?`مورد تقاضا بصورت یک باب باغ محصور به مساحت ${v('gardenArea')} مترمربع است. دیوار حصار آن از نوع ${v('fenceType')} و دارای ${v('fenceHeight')} متر ارتفاع می‌باشد و تعداد ${v('treeCount')} اصله درخت ${v('treeType')} با قدمت تقریبی ${v('treeAge')} سال در آن غرس شده است.`:`در ملک مورد تقاضا یکباب ساختمان به مساحت (اعیان) ${v('buildingArea')} متر مربع با قدمت ${v('buildingAge')} می‌باشد و دارای امتیاز برق شماره ${v('electricity')} آب شماره ${v('water')} گاز شماره ${v('gas')} می‌باشد.`;
+ const shareChoice=reportVal('shareStatus');const shareText=shareChoice==='less'?'ب- تصرفات متقاضی کمتر از سهم مشاعی است.':shareChoice==='excess'?`ج- تصرفات متقاضی مقدار ${v('excessArea')} مترمربع مازاد بر سهم مشاعی است و هرگونه اتخاذ تصمیم در خصوص میزان مازاد منوط به صدور دستور هیأت است.`:'الف- تصرفات متقاضی به اندازه سهم مشاعی است.';
+ const witness=i=>`-${i} اینجانب ${v('w'+i+'name')} فرزند ${v('w'+i+'father')} ش ش ${v('w'+i+'sh')} صادره از ${v('w'+i+'issue')} کد ملی ${v('w'+i+'nid')} تصرفات مالکانه آقای/خانم ${applicant} را گواهی می‌نمایم.\nامضا و اثر انگشت`;
+ const pages=[
+ `<div class="official-page"><div class="official-top"><div>قوه قضائیه</div><div>شماره: ${v('reportNo')}<br>تاریخ: ${v('reportDate')}</div></div><div class="official-center"><b>سازمان ثبت اسناد و املاک کشور</b><br>اداره کل ثبت اسناد و املاک تهران<br>اداره ثبت اسناد و املاک سعادت‌آباد<br><br><b>باسمه تعالی</b><br><b>هیأت موضوع قانون تعیین تکلیف وضعیت ثبتی اراضی و ساختمانهای فاقد سند رسمی</b></div><p>احتراماً در اجرای قرار کارشناسی شماره ${v('orderNo')} مورخ ${v('orderDate')} اینجانب/اینجانبان ${v('expert')} و ${v('expert2')} در تاریخ ${v('visitDate')} در معیت ${reportVal('visitorRole')||'متقاضی'} به محل وقوع ملک مورد تقاضای آقای/خانم ${applicant} به آدرس ${v('address')} مراجعه و به موضوع رسیدگی شد.</p><p>نتیجه بررسی‌های بعمل آمده به شرح زیر اعلام می‌گردد:</p><p>۱-۱ نقشه ارائه شده با وضعیت ملک مورد تقاضا مطابقت داده شده و ملاحظه گردیده که: ${v('mapMatch')}</p><p>۱-۲ حدود جغرافیایی، حقوق ارتفاقی مورد تقاضا و وضعیت مجاورین</p><p>الف- حدود جغرافیایی ملک مطابق با نقشه و وضعیت ملک به شرح زیر می‌باشد:</p><p>شمالاً: ${v('north')}<br>شرقاً: ${v('east')}<br>جنوباً: ${v('south')}<br>غرباً: ${v('west')}</p><p>ب- حقوق ارتفاقی ملک به شرح زیر می‌باشد: ${v('easement')}</p><p>ج- وضعیت دقیق حد فاصل ملک، نوع دیوار، قدمت، میزان ارتفاع و شماره پلاک اصلی و فرعی و نام مجاور آن به شرح زیر می‌باشد:</p><p>حد فاصل، نوع دیوار، قدمت دیوار، میزان ارتفاع دیوار، شماره پلاک اصلی و فرعی و نام مجاور شمالی: ${v('northDetail')}</p><p>حد فاصل، نوع دیوار، قدمت دیوار، میزان ارتفاع دیوار، شماره پلاک اصلی و فرعی و نام مجاور شرقی: ${v('eastDetail')}</p><p>حد فاصل، نوع دیوار، قدمت دیوار، میزان ارتفاع دیوار، شماره پلاک اصلی و فرعی و نام مجاور جنوبی: ${v('southDetail')}</p><p>حد فاصل، نوع دیوار، قدمت دیوار، میزان ارتفاع دیوار، شماره پلاک اصلی و فرعی و نام مجاور غربی: ${v('westDetail')}</p><div class="official-footer">صفحه ۱ از ۳</div></div>`,
+ `<div class="official-page"><p>۲- مورد تقاضا طبق بررسی‌های بعمل آمده قطعه ${v('pieceNo')} جزء پلاک ${v('subParcel')} فرعی از ${v('mainParcel')} اصلی است که میزان ${v('plotArea')} متر مربع آن به عنوان ${v('wholePart')} از پلاک فوق برابر ${v('possessionDescription')} به تصرف متقاضی در آمده است و طبق سوابق ارائه شده، وضعیت ثبتی ملک، آخرین مالک رسمی و نحوه خریداری متقاضی از مالک/مالکین رسمی به شرح زیر اعلام می‌گردد:</p><p>${v('registryStatus')}</p><p>۳- در رابطه با نوع و میزان مستحدثات و اعیان احداثی موضوع بررسی و مشخص گردید:</p><p>الف- ${propertySentence}</p><p>سایر توضیحات: ${v('other3')}</p><p>۴- ارزش عرصه و اعیان مورد تقاضا برابر قیمت منطقه‌ای به شرح زیر اعلام می‌گردد:</p><p>${v('value')}</p><p>۵-۱ ملک مورد تقاضا طبق بررسی بعمل آمده جزء اراضی دولتی، ملی و موات ${reportVal('publicLand')||'..................................'}.</p><p>۵-۲ با بررسی بعمل آمده و ملاحظه سوابق ثبتی محرز گردید که ملک مورد تقاضا در پلاک ${v('parcelLocation')} واقع شده و پلاک مذکور سابقه ملی/دولتی/موات ${reportVal('landHistory')||'..................................'}.</p><p>${v('landHistoryExplain')}</p><p>۶- (در خصوص مالکین رسمی مشاعی این بند تکمیل شود.) متقاضی مالک مشاعی میزان ${v('shareNumerator')} سهم مشاع از ${v('shareDenominator')} سهم ششدانگ می‌باشد و مطابق وضعیت محل، مساحت پلاک مذکور طبق سوابق پیوست ${v('sharePlotArea')} مترمربع است که میزان ${v('passageArea')} مترمربع آن جزء گذر ${v('usefulArea')} شده و دارای ${v('usefulArea')} مترمربع مساحت مفید است. بنابراین سهم متقاضی از پلاک فوق میزان ${v('shareArea')} متر مربع است و در حال حاضر مقدار ${v('currentPossession')} متر مربع تصرف دارد.</p><p>${shareText}</p><div class="official-footer">صفحه ۲ از ۳</div></div>`,
+ `<div class="official-page"><p>۷- با توجه به مراتب فوق و با عنایت به بررسی‌های بعمل آمده و ملاحظه مدارک مالکیت متقاضی و بررسی سوابق ثبتی، تصرفات بلامعارض متقاضی آقای/خانم ${applicant} در قسمتی از/شامل ${reportVal('claimantType')==='زمین مزروعی'?'یک قطعه زمین مزروعی':reportVal('claimantType')==='باغ'?'یک درب باغ':'یک باب ساختمان'} به مساحت عرصه: ${v('claimantArea')} مترمربع قطعه ${v('claimantPiece')} مفروز و مجزی شده از پلاک ${v('claimantSub')} فرعی از ${v('claimantMain')} اصلی واقع در بخش ${v('block')} خریداری از آقای/خانم ${v('seller')} را گواهی نموده و مسئولیت حقوقی ناشی از احراز مالکیت را پذیرا می‌باشم.</p><p>سایر توضیحات: ${v('other7')}</p><p>۸- در رابطه با نحوه تصرفات متقاضی و نحوه خریداری از مالک رسمی و به منظور حصول اطمینان از مالکیت قانونی متقاضی مراتب از شهود و مطلعین محلی پرسش و به شرح زیر همگی تصرفات مالکانه و بلامعارض متقاضی را نزد اینجانب گواهی نمودند و امضاء شهود مورد تأیید اینجانب می‌باشد:</p><p>${witness(1)}</p><p>${witness(2)}</p><p>${witness(3)}</p><p>${witness(4)}</p><div class="official-sign"><div>نام کارشناسان منتخب<br><br>امضا و مهر</div><div>نام متقاضی<br><br>امضاء</div></div><div class="official-footer">صفحه ۳ از ۳</div></div>`
+ ];
+ const wrap=document.getElementById('labFullDraftWrap');const out=document.getElementById('labPrintReport');if(out)out.innerHTML=pages.join('');if(wrap)wrap.style.display='block';
+}
+function printExperimentalReport(){generateExperimentalReportPreview();setTimeout(()=>window.print(),150);}
+function saveExperimentalReportDraft(caseId){const c=state.cases.find(x=>String(x.id||x.referral_no||'')===String(caseId));const data={caseId:String(caseId),referral_no:c?.referral_no||'',applicant:c?.applicant||'',savedAt:new Date().toISOString()};document.querySelectorAll('#experimentalReportLab [data-report-field]').forEach(el=>data[el.dataset.reportField]=el.value.trim());try{localStorage.setItem(reportDraftKey(c||{id:caseId}),JSON.stringify(data));const el=document.getElementById('experimentalReportState');if(el)el.textContent='پیش‌نویس در همین مرورگر ذخیره شد؛ هنوز برای دبیر ارسال نشده است.';notify('پیش‌نویس گزارش در همین دستگاه ذخیره شد.');}catch(e){notify('ذخیره محلی انجام نشد: '+(e?.message||''));}}
+async function submitExperimentalReportToDabir(caseId){
+ const root=document.getElementById('experimentalReportLab');
+ const c=state.cases.find(x=>String(x.id||x.referral_no||'')===String(caseId));
+ if(!root||!c){notify('فرم یا پرونده پیدا نشد.');return;}
+ if(!c.id){notify('شناسه سروری پرونده معتبر نیست؛ گزارش ارسال نشد.');return;}
+ const btn=[...root.querySelectorAll('button')].find(b=>b.textContent.includes('ارسال گزارش به دبیر'));
+ if(btn){btn.disabled=true;btn.textContent='در حال ارسال...';}
+ try{
+   const {data:authData,error:authError}=await sb.auth.getUser();
+   if(authError)throw authError;
+   const user=authData?.user;
+   if(!user?.id)throw new Error('نشست کاربری معتبر نیست؛ دوباره وارد شوید.');
+   const existing=await sb.from('expert_report_submissions_test').select('id,status').eq('referral_id',String(c.id)).eq('expert_user_id',user.id).eq('status','submitted').limit(1);
+   if(existing.error)throw existing.error;
+   if(existing.data?.length)throw new Error('برای این پرونده یک گزارش در انتظار بررسی دبیر ثبت شده است.');
+   // Build the official three-page preview using the existing report template, then preserve its text separately.
+   generateExperimentalReportPreview();
+   const reportNode=document.getElementById('labPrintReport');
+   const reportText=String(reportNode?.innerText||reportNode?.textContent||'').trim();
+   if(!reportText)throw new Error('متن گزارش تولید نشد؛ ابتدا نمایش گزارش سه‌صفحه‌ای را بررسی کنید.');
+   const reportData={};
+   root.querySelectorAll('[data-report-field]').forEach(el=>{reportData[el.dataset.reportField]=String(el.value??'').trim();});
+   reportData.referral_no=String(c.referral_no||'');
+   reportData.applicant=String(c.applicant||c.applicant_name||reportData.applicant||'');
+   reportData.subject=String(c.subject||'');
+   reportData.area=String(c.area??'');
+   reportData.expert_name=String(state.user?.name||state.user?.full_name||state.user?.display_name||'');
+   const payload={referral_id:String(c.id),expert_user_id:user.id,referral_no:String(c.referral_no||''),applicant:String(c.applicant||c.applicant_name||''),report_data:reportData,report_text:reportText,status:'submitted'};
+   const {data,error}=await sb.from('expert_report_submissions_test').insert(payload).select('id').single();
+   if(error)throw error;
+   try{const key=reportDraftKey(c);const saved=JSON.parse(localStorage.getItem(key)||'{}');saved.submittedAt=new Date().toISOString();saved.submissionId=data?.id||null;localStorage.setItem(key,JSON.stringify(saved));}catch(_){}
+   const stateEl=document.getElementById('experimentalReportState');
+   if(stateEl)stateEl.textContent='گزارش سه‌صفحه‌ای با موفقیت به دبیر ارسال شد. نسخه اصلی گزارش در سوابق پرونده محفوظ است.';
+   notify('گزارش کارشناسی به دبیر ارسال شد.');
+ }catch(e){notify('ارسال گزارش ناموفق بود: '+(e?.message||'خطای نامشخص'));}
+ finally{if(btn){btn.disabled=false;btn.textContent='ارسال گزارش به دبیر';}}
+}
+function clearExperimentalReportDraft(caseId){if(!confirm('پیش‌نویس این پرونده از حافظه همین مرورگر پاک شود؟'))return;const c=state.cases.find(x=>String(x.id||x.referral_no||'')===String(caseId));try{localStorage.removeItem(reportDraftKey(c||{id:caseId}));}catch(e){}document.querySelectorAll('#experimentalReportLab [data-report-field]').forEach(el=>{if(!['expert','applicant'].includes(el.dataset.reportField))el.value='';});const el=document.getElementById('experimentalReportState');if(el)el.textContent='فرم پاک شد؛ اطلاعات پرونده دوباره به‌صورت خودکار درج می‌شود.';}
+// ===== END V218 EXACT OFFICIAL THREE-PAGE EXPERT REPORT =====
+
 async function setDone(id){
  const c=state.cases.find(x=>String(x.id||x.referral_no||'')===String(id));
  if(!c){notify('پرونده پیدا نشد؛ فهرست را به‌روزرسانی کنید');return;}
@@ -1138,12 +1314,13 @@ function startRealtime(){
  realtimeChannel=sb.channel('expert-referrals-'+session.user.id)
  .on('postgres_changes',{event:'INSERT',schema:'public',table:'expert_referrals'},p=>{
    const c=p.new||{}; if(!c.id || String(c.expert_user_id)!==String(session.user.id))return;
+   if(normalizeCaseNo(c.referral_no)===normalizeCaseNo('1405114415504003256'))return;
    state.cases=[c,...state.cases.filter(x=>String(x.id)!==String(c.id))];
    lastCaseIds=new Set(state.cases.map(x=>String(x.id||x.referral_no||''))); save(); render();
    notify('ارجاع جدید برای شما ثبت شد: '+(c.referral_no||'پرونده جدید'),true);
  })
  .on('postgres_changes',{event:'UPDATE',schema:'public',table:'expert_referrals'},p=>{
-   const c=p.new||{}; if(String(c.expert_user_id)!==String(session.user.id))return; const i=state.cases.findIndex(x=>String(x.id)===String(c.id));
+   const c=p.new||{}; if(String(c.expert_user_id)!==String(session.user.id))return; if(normalizeCaseNo(c.referral_no)===normalizeCaseNo('1405114415504003256')){state.cases=state.cases.filter(x=>String(x.id)!==String(c.id));save();render();return;} const i=state.cases.findIndex(x=>String(x.id)===String(c.id));
    if(i>=0)state.cases[i]=c; else state.cases.unshift(c); save(); render();
  })
  .on('postgres_changes',{event:'DELETE',schema:'public',table:'expert_referrals'},p=>{
@@ -1833,8 +2010,7 @@ header#top .expert-label#who {
   background-clip: initial !important;
 }
 /* Compact the in-app notifications panel without hiding controls */
-#homeNotifications {
-  padding: 10px 12px !important;
+#homeNotifications {  padding: 10px 12px !important;
   margin-bottom: 9px !important;
   border-radius: 12px !important;
 }
@@ -2085,6 +2261,116 @@ html body header#top #who.expert-label {
   
 
 
+<!-- Arsin Expert Web V1.223: web-only announcements/downloads, persistent acknowledgement, browser back guard retained. -->
+
+<style id="v220-green-simple-report-form">
+#experimentalReportLab.report-lab{background:#f1f8f2!important;border:2px solid #27834a!important;color:#183d28!important;box-shadow:0 5px 18px rgba(24,105,55,.10)!important}
+#experimentalReportLab .report-field{background:#fafffb!important;border:1.5px solid #58a66d!important;border-radius:11px!important;padding:9px!important}
+#experimentalReportLab .report-field label{color:#176334!important;font-weight:900!important}
+#experimentalReportLab .report-field input,#experimentalReportLab .report-field select,#experimentalReportLab .report-field textarea{background:#fff!important;color:#173b25!important;border:1.7px solid #3d9858!important;box-shadow:none!important}
+#experimentalReportLab .report-field input:focus,#experimentalReportLab .report-field select:focus,#experimentalReportLab .report-field textarea:focus{border-color:#16723a!important;outline:2px solid rgba(22,114,58,.16)!important}
+#experimentalReportLab .report-section{grid-column:1/-1;border:1.5px solid #4b9b60;border-radius:12px;background:#f8fff9;overflow:hidden}
+#experimentalReportLab .report-section-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:right;padding:12px 13px;background:#e2f3e6!important;color:#145b2d!important;border:0!important;border-radius:0!important;box-shadow:none!important;font-size:13px;font-weight:900}
+#experimentalReportLab .report-section.open .report-section-toggle{background:#ccebd4!important;border-bottom:1px solid #65ad78!important}
+#experimentalReportLab .report-section-arrow{display:grid;place-items:center;min-width:25px;height:25px;border-radius:50%;background:#27834a;color:#fff;font-size:18px}
+#experimentalReportLab .report-section-body{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:10px}
+#experimentalReportLab .report-section-body[hidden]{display:none!important}
+#experimentalReportLab .lab-note{background:#e4f4e8!important;border:1px solid #8bc69a!important;border-right:4px solid #27834a!important;color:#214d2d!important}
+#experimentalReportLab .lab-save{background:#27834a!important;color:#fff!important;border:1px solid #176334!important}
+#experimentalReportLab .lab-clear{background:#e5f3e8!important;color:#205c31!important;border:1px solid #83bd91!important}
+@media(max-width:560px){#experimentalReportLab .report-section-body{grid-template-columns:1fr}}
+</style>
+
+
+<style id="arsin-v221-green-entry-fields">
+/* V221: calm green input surfaces for clearer data entry */
+input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+textarea, select, [contenteditable="true"] {
+  background-color:#EAF6ED !important;
+  color:#17251B !important;
+  border:1.5px solid #3B9460 !important;
+  border-radius:11px !important;
+  caret-color:#176B3A !important;
+}
+input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]):focus,
+textarea:focus, select:focus, [contenteditable="true"]:focus {
+  outline:2px solid rgba(35,130,75,.18) !important;
+  border-color:#207A46 !important;
+  box-shadow:0 0 0 2px rgba(35,130,75,.10) !important;
+}
+input:disabled, textarea:disabled, select:disabled {
+  background-color:#E5EAE6 !important; color:#68736B !important;
+  border-color:#B8C8BC !important; opacity:1 !important;
+}
+input::placeholder, textarea::placeholder { color:#687A6D !important; opacity:1 !important; }
+</style>
+
+
+<style id="v224-unified-green-black-numbered-sections">
+/* V224: هماهنگ‌سازی همه کادرها و خوانایی متن بندهای شماره‌دار */
+#experimentalReportLab .report-field{background:#EAF6ED!important;border:1.8px solid #329653!important;border-radius:11px!important;}
+#experimentalReportLab .report-field > label,#experimentalReportLab .report-field label{color:#000!important;font-weight:900!important;text-shadow:none!important;}
+#experimentalReportLab .report-field input:not([type="checkbox"]):not([type="radio"]),
+#experimentalReportLab .report-field textarea,
+#experimentalReportLab .report-field select{background:#EAF6ED!important;color:#000!important;border:1.8px solid #329653!important;border-radius:9px!important;}
+#experimentalReportLab .report-field input::placeholder,#experimentalReportLab .report-field textarea::placeholder{color:#444!important;opacity:1!important;}
+#experimentalReportLab .report-grid h4{background:#D5EEDC!important;color:#000!important;border:1.8px solid #329653!important;font-weight:900!important;text-shadow:none!important;}
+#experimentalReportLab .report-lab h3{color:#fff!important;}
+#experimentalReportLab .report-field input:focus,#experimentalReportLab .report-field textarea:focus,#experimentalReportLab .report-field select:focus{background:#F3FBF5!important;border-color:#075F2C!important;outline:2px solid rgba(7,95,44,.18)!important;box-shadow:0 0 0 2px rgba(7,95,44,.10)!important;}
+</style>
+
+
+<style id="v225-green-accordions-black-labels">
+/* V225: هماهنگ‌سازی بخش‌های بازشونده با کادرهای سبز و نوشته مشکی */
+#experimentalReportLab .report-section{background:#EAF6ED!important;border:1.8px solid #329653!important;border-radius:11px!important;}
+#experimentalReportLab .report-section-toggle,
+#experimentalReportLab .report-section.open .report-section-toggle{background:#D5EEDC!important;color:#000!important;border:0!important;border-bottom:1.5px solid #329653!important;font-weight:900!important;text-shadow:none!important;}
+#experimentalReportLab .report-section-toggle *:not(.report-section-arrow){color:#000!important;}
+#experimentalReportLab .report-section-arrow{background:#329653!important;color:#fff!important;}
+#experimentalReportLab .report-section-body{background:#EAF6ED!important;}
+#experimentalReportLab .report-section-body .report-field{background:#EAF6ED!important;border:1.8px solid #329653!important;}
+#experimentalReportLab .report-section-body .report-field label{color:#000!important;font-weight:900!important;}
+#experimentalReportLab .report-section-body .report-field input:not([type="checkbox"]):not([type="radio"]),
+#experimentalReportLab .report-section-body .report-field textarea,
+#experimentalReportLab .report-section-body .report-field select{background:#EAF6ED!important;color:#000!important;border:1.8px solid #329653!important;}
+#experimentalReportLab .report-section-body .report-grid h4{background:#D5EEDC!important;color:#000!important;border:1.8px solid #329653!important;font-weight:900!important;}
+</style>
+
+<style id="v226-all-form-labels-black">
+/* V226: همه عنوان‌ها و لیبل‌های فرم، از جمله عنوان نوارهای بازشونده، مشکی و خوانا */
+#experimentalReportLab label,
+#experimentalReportLab .report-field label,
+#experimentalReportLab .report-field > label,
+#experimentalReportLab .report-section-toggle,
+#experimentalReportLab .report-section-toggle *,
+#experimentalReportLab .report-grid h4,
+#experimentalReportLab .field-label,
+#experimentalReportLab [class*="label"] {
+  color:#000000 !important;
+  font-weight:900 !important;
+  text-shadow:none !important;
+}
+/* فلش نوار بازشونده سفید باقی بماند تا روی دایره سبز خوانا باشد. */
+#experimentalReportLab .report-section-arrow { color:#ffffff !important; }
+</style>
+
+
+<style id="v227-dark-accordion-title-white">
+/* V227: فقط متن سرتیتر نوارهای بازشونده سفید شود؛ سایر لیبل‌ها بدون تغییر */
+#experimentalReportLab .report-section-toggle,
+#experimentalReportLab .report-section-toggle * { color:#ffffff !important; }
+#experimentalReportLab .report-section-arrow { color:#ffffff !important; }
+</style>
+
+
+<style id="v228-dark-accordion-title-white">
+/* V228: فقط متن سرتیتر نوارهای تیره سفید شود؛ علامت + و − نیز سفید می‌ماند. */
+#experimentalReportLab .report-section-toggle { color:#ffffff !important; }
+#experimentalReportLab .report-section-toggle *:not(.report-section-arrow) { color:#ffffff !important; }
+#experimentalReportLab .report-section-toggle .report-section-arrow { color:#ffffff !important; }
+</style>
+
+
 </body></html>`);
   w.document.close();setTimeout(()=>{w.focus();w.print();},500);
  }
@@ -2170,83 +2456,212 @@ function initJalaliReceiptCalendar(){
 document.body.classList.remove('expert-authenticated');
 window.addEventListener('pageshow',()=>{if(!document.getElementById('app') || document.getElementById('app').classList.contains('hidden')) document.body.classList.remove('expert-authenticated');});
 </script>
-<script id="arsin-expert-login-guard-v204">
+<script id="arsin-expert-login-guard-v205">
 (function(){
   'use strict';
+  function showMessage(text){var m=document.getElementById('loginMsg');if(m)m.textContent=text;}
   function install(){
     var button=document.getElementById('expertLoginButton');
-    var message=document.getElementById('loginMsg');
     if(!button || button.dataset.guardInstalled==='1') return;
     button.dataset.guardInstalled='1';
-    button.addEventListener('click',function(event){
-      event.preventDefault();
-      if(button.dataset.busy==='1') return;
-      button.dataset.busy='1';
-      button.disabled=true;
-      button.textContent='در حال ورود…';
-      if(message) message.textContent='در حال آماده‌سازی ورود…';
-      window.setTimeout(async function(){
-        try{
-          if(typeof window.login!=='function'){
-            throw new Error('تابع ورود بارگذاری نشده است؛ صفحه را یک‌بار ببندید و دوباره باز کنید.');
-          }
-          await window.login();
-        }catch(error){
-          if(message) message.textContent='خطای ورود: '+(error && error.message ? error.message : String(error));
-          else window.alert('خطای ورود: '+(error && error.message ? error.message : String(error)));
-          console.error('Arsin expert login handler failed:',error);
-        }finally{
-          button.dataset.busy='0';
-          button.disabled=false;
-          button.textContent='ورود آنلاین';
-        }
-      },0);
-    },false);
-  }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',install,{once:true});
-  else install();
-  window.addEventListener('error',function(event){
-    var msg=document.getElementById('loginMsg');
-    if(msg && !document.body.classList.contains('expert-authenticated') && event && event.message){
-      msg.textContent='خطای اجرای برنامه: '+event.message;
+    async function runLogin(event){
+      if(event){event.preventDefault();event.stopPropagation();}
+      if(button.dataset.busy==='1') return false;
+      var email=document.getElementById('loginId'), password=document.getElementById('password');
+      if(!email || !password || !email.value.trim() || !password.value){showMessage('ایمیل و رمز عبور را وارد کنید.');return false;}
+      button.dataset.busy='1';button.disabled=true;button.textContent='در حال ورود…';
+      showMessage('در حال اتصال و بررسی اطلاعات ورود…');
+      try{
+        var fn=window.login;
+        if(typeof fn!=='function') throw new Error('کد ورود بارگذاری نشده است. صفحه را تازه‌سازی کنید؛ اگر تکرار شد، به پشتیبانی اطلاع دهید.');
+        await fn();
+        if(!document.body.classList.contains('expert-authenticated') && !document.getElementById('loginMsg').textContent.trim()) showMessage('ورود انجام نشد؛ پیام خطا را بررسی کنید.');
+      }catch(error){showMessage('خطای ورود: '+(error&&error.message?error.message:String(error)));console.error('Arsin expert login failed',error);}
+      finally{button.dataset.busy='0';button.disabled=false;button.textContent='ورود آنلاین';}
+      return false;
     }
+    button.onclick=runLogin;
+    ['loginId','password'].forEach(function(id){var input=document.getElementById(id);if(input)input.addEventListener('keydown',function(e){if(e.key==='Enter')runLogin(e);});});
+  }
+  function installAnnouncementDismissal(){
+    var key='arsin_expert_announcement_ack_v205';
+    try{if(localStorage.getItem(key)==='1'){var old=document.getElementById('releaseAnnouncement');if(old)old.remove();}}
+    catch(e){}
+    document.addEventListener('click',function(event){
+      var button=event.target&&event.target.closest?event.target.closest('.ra-ack,[data-announcement-ack]'):null;
+      if(!button)return;
+      var box=button.closest('#releaseAnnouncement,.release-announcement');
+      if(!box)return;
+      event.preventDefault();
+      try{localStorage.setItem(key,'1');}catch(e){}
+      box.remove();
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){install();installAnnouncementDismissal();},{once:true});
+  else{install();installAnnouncementDismissal();}
+  window.addEventListener('error',function(event){if(event&&event.message&&!document.body.classList.contains('expert-authenticated'))showMessage('خطای اجرای سامانه: '+event.message);});
+})();
+</script>
+
+<script>
+/* ARSIN_ANDROID_NOTIFICATION_ROUTING_V1 */
+(function () {
+  let lastPayload = "";
+  function pollNotification() {
+    try {
+      if (!window.ArsinNotification || typeof window.ArsinNotification.takePendingNotification !== "function") return;
+      const raw = window.ArsinNotification.takePendingNotification();
+      if (!raw || raw === lastPayload) return;
+      lastPayload = raw;
+      const payload = JSON.parse(raw);
+      route(payload, 0);
+    } catch (e) {}
+  }
+  function route(payload, attempt) {
+    const ready = document.body.classList.contains("expert-authenticated") &&
+      typeof state !== "undefined" && Array.isArray(state.cases);
+    if (!ready) {
+      if (attempt < 80) setTimeout(function () { route(payload, attempt + 1); }, 750);
+      else window.__arsinQueuedNotification = payload;
+      return;
+    }
+    const type = String(payload.type || "");
+    const referralId = String(payload.referral_id || "");
+    if (type === "new_referral" || referralId) {
+      // Navigate to the referrals list and highlight the matching row; do not open details.
+      navigateSection("cases");
+      let tries = 0;
+      function focusReferralRow() {
+        const row = state.cases.find(function (item) {
+          return (referralId && String(item.id || "") === referralId) ||
+            (payload.referral_no && String(item.referral_no || "") === String(payload.referral_no));
+        });
+        if (row) {
+          const key = String(row.referral_no || row.id || "");
+          const cards = Array.from(document.querySelectorAll(".case"));
+          const card = cards.find(function (el) { return key && (el.textContent || "").includes(key); });
+          if (card) {
+            card.scrollIntoView({behavior: "smooth", block: "center"});
+            card.style.outline = "3px solid #16a6a1";
+            card.style.outlineOffset = "3px";
+            setTimeout(function () { card.style.outline = ""; card.style.outlineOffset = ""; }, 5000);
+          }
+          return;
+        }
+        if (tries === 0 && typeof pullExpertCases === "function") {
+          tries++;
+          Promise.resolve(pullExpertCases(true)).finally(function () { setTimeout(focusReferralRow, 600); });
+        } else if (tries < 12) {
+          tries++;
+          setTimeout(focusReferralRow, 700);
+        }
+      }
+      setTimeout(focusReferralRow, 350);
+      return;
+    }
+    if (type === "receipt_list_approved" || payload.list_id) {
+      navigateSection("financialReceipts");
+      return;
+    }
+    if (type === "manager_warning") {
+      if (referralId) {
+        const row = state.cases.find(function (item) { return String(item.id || "") === referralId; });
+        navigateSection("cases");
+        if (row) setTimeout(function () { openCase(row.id); }, 300);
+      } else {
+        navigateSection("workbench");
+      }
+      return;
+    }
+    navigateSection("home");
+  }
+  setInterval(pollNotification, 700);
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden) pollNotification();
   });
 })();
 </script>
-<script id="arsin-expert-notice-center-v205">
+
+<!-- Arsin Expert Web V1.209: web-only announcements/downloads, persistent acknowledgement, browser back guard retained. -->
+
+<style id="arsin-v221-green-entry-fields">
+/* V221: calm green input surfaces for clearer data entry */
+input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+textarea, select, [contenteditable="true"] {
+  background-color:#EAF6ED !important;
+  color:#17251B !important;
+  border:1.5px solid #3B9460 !important;
+  border-radius:11px !important;
+  caret-color:#176B3A !important;
+}
+input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]):focus,
+textarea:focus, select:focus, [contenteditable="true"]:focus {
+  outline:2px solid rgba(35,130,75,.18) !important;
+  border-color:#207A46 !important;
+  box-shadow:0 0 0 2px rgba(35,130,75,.10) !important;
+}
+input:disabled, textarea:disabled, select:disabled {
+  background-color:#E5EAE6 !important; color:#68736B !important;
+  border-color:#B8C8BC !important; opacity:1 !important;
+}
+input::placeholder, textarea::placeholder { color:#687A6D !important; opacity:1 !important; }
+</style>
+
+
+<style id="v224-unified-green-black-numbered-sections">
+/* V224: هماهنگ‌سازی همه کادرها و خوانایی متن بندهای شماره‌دار */
+#experimentalReportLab .report-field{background:#EAF6ED!important;border:1.8px solid #329653!important;border-radius:11px!important;}
+#experimentalReportLab .report-field > label,#experimentalReportLab .report-field label{color:#000!important;font-weight:900!important;text-shadow:none!important;}
+#experimentalReportLab .report-field input:not([type="checkbox"]):not([type="radio"]),
+#experimentalReportLab .report-field textarea,
+#experimentalReportLab .report-field select{background:#EAF6ED!important;color:#000!important;border:1.8px solid #329653!important;border-radius:9px!important;}
+#experimentalReportLab .report-field input::placeholder,#experimentalReportLab .report-field textarea::placeholder{color:#444!important;opacity:1!important;}
+#experimentalReportLab .report-grid h4{background:#D5EEDC!important;color:#000!important;border:1.8px solid #329653!important;font-weight:900!important;text-shadow:none!important;}
+#experimentalReportLab .report-lab h3{color:#fff!important;}
+#experimentalReportLab .report-field input:focus,#experimentalReportLab .report-field textarea:focus,#experimentalReportLab .report-field select:focus{background:#F3FBF5!important;border-color:#075F2C!important;outline:2px solid rgba(7,95,44,.18)!important;box-shadow:0 0 0 2px rgba(7,95,44,.10)!important;}
+</style>
+
+
+<style id="v226-all-form-labels-black">
+/* V226: همه عنوان‌ها و لیبل‌های فرم، از جمله عنوان نوارهای بازشونده، مشکی و خوانا */
+#experimentalReportLab label,
+#experimentalReportLab .report-field label,
+#experimentalReportLab .report-field > label,
+#experimentalReportLab .report-section-toggle,
+#experimentalReportLab .report-section-toggle *,
+#experimentalReportLab .report-grid h4,
+#experimentalReportLab .field-label,
+#experimentalReportLab [class*="label"] {
+  color:#000000 !important;
+  font-weight:900 !important;
+  text-shadow:none !important;
+}
+/* فلش نوار بازشونده سفید باقی بماند تا روی دایره سبز خوانا باشد. */
+#experimentalReportLab .report-section-arrow { color:#ffffff !important; }
+</style>
+
+
+
+<style id="v228-dark-accordion-title-white">
+/* V228: فقط متن سرتیتر نوارهای تیره سفید شود؛ علامت + و − نیز سفید می‌ماند. */
+#experimentalReportLab .report-section-toggle { color:#ffffff !important; }
+#experimentalReportLab .report-section-toggle *:not(.report-section-arrow) { color:#ffffff !important; }
+#experimentalReportLab .report-section-toggle .report-section-arrow { color:#ffffff !important; }
+</style>
+
+<script id="arsin-web-version-check-v229">
 (function(){
- 'use strict';
- let timer=null,loading=false;
- const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- function dateText(v){try{return new Intl.DateTimeFormat('fa-IR',{dateStyle:'medium',timeStyle:'short'}).format(new Date(v))}catch(_){return ''}}
- async function refresh(){
-  if(loading||!session?.user?.id)return;
-  loading=true;
-  try{
-   const {data,error}=await sb.from('expert_notices').select('id,title,body,created_at,read_at').eq('expert_user_id',session.user.id).is('archived_at',null).order('created_at',{ascending:false}).limit(30);
-   if(error)throw error;
-   const rows=Array.isArray(data)?data:[];
-   const unread=rows.filter(x=>!x.read_at).length;
-   const badge=document.getElementById('expertNoticeBadge');
-   const list=document.getElementById('expertNoticesList');
-   if(badge)badge.textContent=unread?unread+' اطلاعیه جدید':'بدون اطلاعیه جدید';
-   if(list)list.innerHTML=rows.length?rows.map(x=>'<article class="expert-notice-item '+(!x.read_at?'unread':'')+'"><strong>'+esc(x.title||'اطلاعیه دبیر')+'</strong><p>'+esc(x.body||'')+'</p><small>'+esc(dateText(x.created_at))+'</small>'+(!x.read_at?'<button type="button" data-notice-read="'+esc(x.id)+'">خواندم</button>':'')+'</article>').join(''):'<div class="muted" style="font-size:11px;padding:9px">در حال حاضر اطلاعیه‌ای برای شما ثبت نشده است.</div>';
-  }catch(e){console.warn('Expert notices could not be loaded:',e?.message||e);const list=document.getElementById('expertNoticesList');if(list)list.innerHTML='<div class="muted" style="font-size:11px;padding:9px">دریافت اطلاعیه‌ها موقتاً انجام نشد؛ دوباره بررسی خواهد شد.</div>'}
-  finally{loading=false}
- }
- async function markRead(id){
-  if(!session?.user?.id||!id)return;
-  const {error}=await sb.from('expert_notices').update({read_at:new Date().toISOString()}).eq('id',id).eq('expert_user_id',session.user.id);
-  if(error){console.warn('Notice read state update failed:',error.message);return}
-  refresh();
- }
- function start(){if(timer)clearInterval(timer);refresh();timer=setInterval(refresh,60000)}
- function stop(){if(timer)clearInterval(timer);timer=null}
- document.addEventListener('click',e=>{const b=e.target.closest('[data-notice-read]');if(b)markRead(b.dataset.noticeRead)});
- sb.auth.onAuthStateChange((_event,s)=>{if(s?.user){setTimeout(start,0)}else stop()});
- if(session?.user?.id)start();
- else sb.auth.getSession().then(({data})=>{if(data?.session?.user?.id)start()}).catch(()=>{});
- document.addEventListener('visibilitychange',()=>{if(!document.hidden&&session?.user?.id)refresh()});
+  var current=229;
+  fetch("version.json?nocache="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw new Error("manifest unavailable");return r.json();}).then(function(m){
+    if(!m || Number(m.webVersionCode||m.versionCode||0)<=current || document.getElementById("arsinWebUpdateNotice"))return;
+    var box=document.createElement("div");box.id="arsinWebUpdateNotice";box.setAttribute("role","status");
+    box.style.cssText="position:fixed;z-index:99999;top:10px;left:10px;right:10px;max-width:680px;margin:auto;padding:13px 14px;border:1px solid #22d3c5;border-radius:14px;background:#102d3b;color:#f3ffff;box-shadow:0 8px 28px #0005;font:13px Tahoma,Arial;line-height:1.9";
+    var title=document.createElement("strong");title.textContent="نسخه جدید سامانه آرسین منتشر شده است";
+    var detail=document.createElement("div");detail.textContent="نسخه "+(m.webVersionName||m.versionName||"جدید")+" آماده دریافت است.";
+    var reload=document.createElement("button");reload.type="button";reload.textContent="بارگذاری نسخه جدید";reload.style.cssText="margin:8px 6px 0 0;padding:8px 12px;border:0;border-radius:8px;background:#22d3c5;color:#08232c;font-weight:800";reload.onclick=function(){location.reload();};
+    var apk=document.createElement("a");apk.href=m.apkUrl||"https://arsinexpert-downloads.pages.dev/arsin-expert.apk";apk.textContent="دریافت APK جدید";apk.style.cssText="display:inline-block;margin:8px 6px 0 0;padding:8px 12px;border-radius:8px;background:#d8f6f2;color:#06434a;text-decoration:none;font-weight:800";
+    box.append(title,detail,reload,apk);document.body.appendChild(box);
+  }).catch(function(){});
 })();
 </script>
 </body></html>
