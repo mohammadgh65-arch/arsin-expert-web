@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#101827">
-<meta name="arsin-version" content="EXPERT-V1.229-AUTO-UPDATE">
-<meta name="arsin-version-code" content="229">
-<title>آرسین | پنل کارشناس - نسخه ۲۲۹</title>
+<meta name="arsin-version" content="EXPERT-V1.230-REPORT-PRINT">
+<meta name="arsin-version-code" content="230">
+<title>آرسین | پنل کارشناس - نسخه ۲۳۰</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f7fb;color:#172033;font-family:Tahoma,Arial,sans-serif}
 .wrap{max-width:720px;margin:auto}header{background:#101827;color:#fff;padding:20px 16px;border-radius:0 0 22px 22px}
@@ -581,6 +581,16 @@ body:not(.expert-authenticated) #app{display:none!important}
 #experimentalReportLab .report-section-toggle{color:#064B25!important;}
 </style>
 
+<style id="v230-witness-print-signature">
+/* فقط در خروجی چاپی گزارش: جای خالی امضا و اثر انگشت هر شاهد */
+#labPrintReport .witness-print-signature{display:none}
+@media print{
+ #labPrintReport .witness-print-block{break-inside:avoid;page-break-inside:avoid}
+ #labPrintReport .witness-print-signature{display:flex;gap:14px;justify-content:flex-start;margin:3px 0 9px;direction:rtl}
+ #labPrintReport .witness-sign-box,#labPrintReport .witness-fingerprint-box{box-sizing:border-box;border:1px solid #555;height:25mm;width:43%;padding:4px 7px;text-align:center;font-size:10px}
+ #labPrintReport .witness-sign-box b,#labPrintReport .witness-fingerprint-box b{display:block;font-weight:700}
+}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -1108,6 +1118,10 @@ function openCase(id){
 window.openCase=openCase;
 
 // ===== V218 EXACT OFFICIAL THREE-PAGE EXPERT REPORT =====
+function arsinPersianDigits(value){return String(value??'').replace(/[0-9]/g,d=>'۰۱۲۳۴۵۶۷۸۹'[Number(d)]);}
+function arsinNormalizeReportFields(){const root=document.getElementById('experimentalReportLab');if(!root)return;root.querySelectorAll('[data-report-field]').forEach(el=>{const before=String(el.value??'');const after=arsinPersianDigits(before);if(before!==after){const start=el.selectionStart,end=el.selectionEnd;el.value=after;try{if(start!==null&&end!==null)el.setSelectionRange(start,end);}catch(_){}}});}
+if(!window.__arsinReportPersianDigitsBound){window.__arsinReportPersianDigitsBound=true;document.addEventListener('input',e=>{const el=e.target;if(!el?.matches?.('#experimentalReportLab [data-report-field]'))return;const before=String(el.value??''),after=arsinPersianDigits(before);if(before!==after){const start=el.selectionStart,end=el.selectionEnd;el.value=after;try{if(start!==null&&end!==null)el.setSelectionRange(start,end);}catch(_){}}});document.addEventListener('change',e=>{const el=e.target;if(el?.matches?.('#experimentalReportLab [data-report-field]'))el.value=arsinPersianDigits(el.value);});}
+// ===== V218 EXACT OFFICIAL THREE-PAGE EXPERT REPORT =====
 function reportDraftKey(c){return 'arsin_expert_report_v217_'+String(c?.id||c?.referral_no||'unknown');}
 function buildExperimentalReportForm(c){
  const key=reportDraftKey(c);let saved={};try{saved=JSON.parse(localStorage.getItem(key)||'{}')||{};}catch(e){}
@@ -1121,7 +1135,7 @@ function buildExperimentalReportForm(c){
  ['shareNumerator','میزان سهم مشاعی متقاضی'],['shareDenominator','از چند سهم شش‌دانگ'],['sharePlotArea','مساحت پلاک طبق سوابق پیوست'],['passageArea','مساحت جزء گذر'],['usefulArea','مساحت مفید'],['shareArea','میزان سهم متقاضی از پلاک (متر مربع)'],['currentPossession','میزان تصرف فعلی (متر مربع)'],['shareStatus','وضعیت تصرف نسبت به سهم مشاعی','equal'],['excessArea','میزان مازاد بر سهم (متر مربع)'],
  ['claimantType','نوع ملک برای بند ۷','ساختمان'],['claimantArea','مساحت عرصه بند ۷',auto.area],['claimantPiece','قطعه بند ۷'],['claimantSub','پلاک فرعی بند ۷'],['claimantMain','پلاک اصلی بند ۷'],['block','بخش ثبتی'],['seller','خریداری از'],['other7','سایر توضیحات بند ۷']
  ];
- const savedVal=(id,def='')=>saved[id]!==undefined?saved[id]:(def??'');
+ const savedVal=(id,def='')=>arsinPersianDigits(saved[id]!==undefined?saved[id]:(def??''));
  const propertyGroup=(id)=>({buildingArea:'building',buildingAge:'building',electricity:'building',water:'building',gas:'building',farmArea:'farm',crop:'farm',fence:'farm',gardenArea:'garden',fenceType:'garden',fenceHeight:'garden',treeCount:'garden',treeType:'garden',treeAge:'garden'}[id]||'');
  const fieldWrap=(id,body,wide=false)=>`<div class="report-field${wide?' wide':''}" ${propertyGroup(id)?`data-property-group="${propertyGroup(id)}"`:''}>${body}</div>`;
  const input=(id,label,def='',type='text')=>fieldWrap(id,`<label>${label}</label><input data-report-field="${id}" type="${type}" value="${esc(savedVal(id,def))}" />`);
@@ -1165,24 +1179,75 @@ function updateReportPropertyFields(){
   w.querySelectorAll('input,select,textarea').forEach(el=>{el.disabled=!show;});
  });
 }
-function reportVal(id){const el=document.querySelector(`#experimentalReportLab [data-report-field="${id}"]`);return el?String(el.value||'').trim():'';}
+function reportVal(id){const el=document.querySelector(`#experimentalReportLab [data-report-field="${id}"]`);return el?arsinPersianDigits(String(el.value||'').trim()):'';}
 function reportText(id){return reportVal(id)||'..................................';}
 function generateExperimentalReportPreview(){
  const root=document.getElementById('experimentalReportLab');if(!root)return;
  const v=reportText, applicant=v('applicant'), prop=v('propertyType');
  const propertySentence=prop==='زمین مزروعی'?`مورد تقاضا بصورت یک قطعه زمین مزروعی به مساحت ${v('farmArea')} متر مربع است که زیر کشت ${v('crop')} قرار داشته و دارای حصار ${v('fence')} .`:prop==='باغ'?`مورد تقاضا بصورت یک باب باغ محصور به مساحت ${v('gardenArea')} مترمربع است. دیوار حصار آن از نوع ${v('fenceType')} و دارای ${v('fenceHeight')} متر ارتفاع می‌باشد و تعداد ${v('treeCount')} اصله درخت ${v('treeType')} با قدمت تقریبی ${v('treeAge')} سال در آن غرس شده است.`:`در ملک مورد تقاضا یکباب ساختمان به مساحت (اعیان) ${v('buildingArea')} متر مربع با قدمت ${v('buildingAge')} می‌باشد و دارای امتیاز برق شماره ${v('electricity')} آب شماره ${v('water')} گاز شماره ${v('gas')} می‌باشد.`;
  const shareChoice=reportVal('shareStatus');const shareText=shareChoice==='less'?'ب- تصرفات متقاضی کمتر از سهم مشاعی است.':shareChoice==='excess'?`ج- تصرفات متقاضی مقدار ${v('excessArea')} مترمربع مازاد بر سهم مشاعی است و هرگونه اتخاذ تصمیم در خصوص میزان مازاد منوط به صدور دستور هیأت است.`:'الف- تصرفات متقاضی به اندازه سهم مشاعی است.';
- const witness=i=>`-${i} اینجانب ${v('w'+i+'name')} فرزند ${v('w'+i+'father')} ش ش ${v('w'+i+'sh')} صادره از ${v('w'+i+'issue')} کد ملی ${v('w'+i+'nid')} تصرفات مالکانه آقای/خانم ${applicant} را گواهی می‌نمایم.\nامضا و اثر انگشت`;
+ const witness=i=>`<div class="witness-print-block"><p>-${i} اینجانب ${v('w'+i+'name')} فرزند ${v('w'+i+'father')} ش ش ${v('w'+i+'sh')} صادره از ${v('w'+i+'issue')} کد ملی ${v('w'+i+'nid')} تصرفات مالکانه آقای/خانم ${applicant} را گواهی می‌نمایم.</p><div class="witness-print-signature"><div class="witness-sign-box"><b>محل امضای شاهد ${i}</b></div><div class="witness-fingerprint-box"><b>محل اثر انگشت شاهد ${i}</b></div></div></div>`;
  const pages=[
- `<div class="official-page"><div class="official-top"><div>قوه قضائیه</div><div>شماره: ${v('reportNo')}<br>تاریخ: ${v('reportDate')}</div></div><div class="official-center"><b>سازمان ثبت اسناد و املاک کشور</b><br>اداره کل ثبت اسناد و املاک تهران<br>اداره ثبت اسناد و املاک سعادت‌آباد<br><br><b>باسمه تعالی</b><br><b>هیأت موضوع قانون تعیین تکلیف وضعیت ثبتی اراضی و ساختمانهای فاقد سند رسمی</b></div><p>احتراماً در اجرای قرار کارشناسی شماره ${v('orderNo')} مورخ ${v('orderDate')} اینجانب/اینجانبان ${v('expert')} و ${v('expert2')} در تاریخ ${v('visitDate')} در معیت ${reportVal('visitorRole')||'متقاضی'} به محل وقوع ملک مورد تقاضای آقای/خانم ${applicant} به آدرس ${v('address')} مراجعه و به موضوع رسیدگی شد.</p><p>نتیجه بررسی‌های بعمل آمده به شرح زیر اعلام می‌گردد:</p><p>۱-۱ نقشه ارائه شده با وضعیت ملک مورد تقاضا مطابقت داده شده و ملاحظه گردیده که: ${v('mapMatch')}</p><p>۱-۲ حدود جغرافیایی، حقوق ارتفاقی مورد تقاضا و وضعیت مجاورین</p><p>الف- حدود جغرافیایی ملک مطابق با نقشه و وضعیت ملک به شرح زیر می‌باشد:</p><p>شمالاً: ${v('north')}<br>شرقاً: ${v('east')}<br>جنوباً: ${v('south')}<br>غرباً: ${v('west')}</p><p>ب- حقوق ارتفاقی ملک به شرح زیر می‌باشد: ${v('easement')}</p><p>ج- وضعیت دقیق حد فاصل ملک، نوع دیوار، قدمت، میزان ارتفاع و شماره پلاک اصلی و فرعی و نام مجاور آن به شرح زیر می‌باشد:</p><p>حد فاصل، نوع دیوار، قدمت دیوار، میزان ارتفاع دیوار، شماره پلاک اصلی و فرعی و نام مجاور شمالی: ${v('northDetail')}</p><p>حد فاصل، نوع دیوار، قدمت دیوار، میزان ارتفاع دیوار، شماره پلاک اصلی و فرعی و نام مجاور شرقی: ${v('eastDetail')}</p><p>حد فاصل، نوع دیوار، قدمت دیوار، میزان ارتفاع دیوار، شماره پلاک اصلی و فرعی و نام مجاور جنوبی: ${v('southDetail')}</p><p>حد فاصل، نوع دیوار، قدمت دیوار، میزان ارتفاع دیوار، شماره پلاک اصلی و فرعی و نام مجاور غربی: ${v('westDetail')}</p><div class="official-footer">صفحه ۱ از ۳</div></div>`,
+ `<div class="official-page"><div class="official-top"><div class="official-seal"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/%D8%A2%D8%B1%D9%85_%D9%82%D9%88%D9%87_%D9%82%D8%B6%D8%A7%D8%A6%DB%8C%D9%87_%D8%AC%D9%85%D9%87%D9%88%D8%B1%DB%8C_%D8%A7%D8%B3%D9%84%D8%A7%D9%85%DB%8C_%D8%A7%DB%8C%D8%B1%D8%A7%D9%86.png" alt="آرم قوه قضاییه"><span>قوه قضائیه</span></div><div class="official-meta">شماره: ${v('reportNo')}<br>تاریخ: ${v('reportDate')}</div></div><div class="official-center"><b>سازمان ثبت اسناد و املاک کشور</b><br>اداره کل ثبت اسناد و املاک تهران<br>اداره ثبت اسناد و املاک سعادت‌آباد<br><br><b>باسمه تعالی</b><br><b>هیأت موضوع قانون تعیین تکلیف وضعیت ثبتی اراضی و ساختمانهای فاقد سند رسمی</b></div><p>احتراماً در اجرای قرار کارشناسی شماره ${v('orderNo')} مورخ ${v('orderDate')} اینجانب/اینجانبان ${v('expert')} و ${v('expert2')} در تاریخ ${v('visitDate')} در معیت ${reportVal('visitorRole')||'متقاضی'} به محل وقوع ملک مورد تقاضای آقای/خانم ${applicant} به آدرس ${v('address')} مراجعه و به موضوع رسیدگی شد.</p><p>نتیجه بررسی‌های بعمل آمده به شرح زیر اعلام می‌گردد:</p><p>۱-۱ نقشه ارائه شده با وضعیت ملک مورد تقاضا مطابقت داده شده و ملاحظه گردیده که: ${v('mapMatch')}</p><p>۱-۲ حدود جغرافیایی، حقوق ارتفاقی مورد تقاضا و وضعیت مجاورین</p><p>الف- حدود جغرافیایی ملک مطابق با نقشه و وضعیت ملک به شرح زیر می‌باشد:</p><p>شمالاً: ${v('north')}<br>شرقاً: ${v('east')}<br>جنوباً: ${v('south')}<br>غرباً: ${v('west')}</p><p>ب- حقوق ارتفاقی ملک به شرح زیر می‌باشد: ${v('easement')}</p><p>ج- وضعیت دقیق حد فاصل ملک، نوع دیوار، قدمت، میزان ارتفاع و شماره پلاک اصلی و فرعی و نام مجاور آن به شرح زیر می‌باشد:</p><p>حد فاصل، نوع دیوار، قدمت دیوار، میزان ارتفاع دیوار، شماره پلاک اصلی و فرعی و نام مجاور شمالی: ${v('northDetail')}</p><p>حد فاصل، نوع دیوار، قدمت دیوار، میزان ارتفاع دیوار، شماره پلاک اصلی و فرعی و نام مجاور شرقی: ${v('eastDetail')}</p><p>حد فاصل، نوع دیوار، قدمت دیوار، میزان ارتفاع دیوار، شماره پلاک اصلی و فرعی و نام مجاور جنوبی: ${v('southDetail')}</p><p>حد فاصل، نوع دیوار، قدمت دیوار، میزان ارتفاع دیوار، شماره پلاک اصلی و فرعی و نام مجاور غربی: ${v('westDetail')}</p><div class="official-footer">صفحه ۱ از ۳</div></div>`,
  `<div class="official-page"><p>۲- مورد تقاضا طبق بررسی‌های بعمل آمده قطعه ${v('pieceNo')} جزء پلاک ${v('subParcel')} فرعی از ${v('mainParcel')} اصلی است که میزان ${v('plotArea')} متر مربع آن به عنوان ${v('wholePart')} از پلاک فوق برابر ${v('possessionDescription')} به تصرف متقاضی در آمده است و طبق سوابق ارائه شده، وضعیت ثبتی ملک، آخرین مالک رسمی و نحوه خریداری متقاضی از مالک/مالکین رسمی به شرح زیر اعلام می‌گردد:</p><p>${v('registryStatus')}</p><p>۳- در رابطه با نوع و میزان مستحدثات و اعیان احداثی موضوع بررسی و مشخص گردید:</p><p>الف- ${propertySentence}</p><p>سایر توضیحات: ${v('other3')}</p><p>۴- ارزش عرصه و اعیان مورد تقاضا برابر قیمت منطقه‌ای به شرح زیر اعلام می‌گردد:</p><p>${v('value')}</p><p>۵-۱ ملک مورد تقاضا طبق بررسی بعمل آمده جزء اراضی دولتی، ملی و موات ${reportVal('publicLand')||'..................................'}.</p><p>۵-۲ با بررسی بعمل آمده و ملاحظه سوابق ثبتی محرز گردید که ملک مورد تقاضا در پلاک ${v('parcelLocation')} واقع شده و پلاک مذکور سابقه ملی/دولتی/موات ${reportVal('landHistory')||'..................................'}.</p><p>${v('landHistoryExplain')}</p><p>۶- (در خصوص مالکین رسمی مشاعی این بند تکمیل شود.) متقاضی مالک مشاعی میزان ${v('shareNumerator')} سهم مشاع از ${v('shareDenominator')} سهم ششدانگ می‌باشد و مطابق وضعیت محل، مساحت پلاک مذکور طبق سوابق پیوست ${v('sharePlotArea')} مترمربع است که میزان ${v('passageArea')} مترمربع آن جزء گذر ${v('usefulArea')} شده و دارای ${v('usefulArea')} مترمربع مساحت مفید است. بنابراین سهم متقاضی از پلاک فوق میزان ${v('shareArea')} متر مربع است و در حال حاضر مقدار ${v('currentPossession')} متر مربع تصرف دارد.</p><p>${shareText}</p><div class="official-footer">صفحه ۲ از ۳</div></div>`,
- `<div class="official-page"><p>۷- با توجه به مراتب فوق و با عنایت به بررسی‌های بعمل آمده و ملاحظه مدارک مالکیت متقاضی و بررسی سوابق ثبتی، تصرفات بلامعارض متقاضی آقای/خانم ${applicant} در قسمتی از/شامل ${reportVal('claimantType')==='زمین مزروعی'?'یک قطعه زمین مزروعی':reportVal('claimantType')==='باغ'?'یک درب باغ':'یک باب ساختمان'} به مساحت عرصه: ${v('claimantArea')} مترمربع قطعه ${v('claimantPiece')} مفروز و مجزی شده از پلاک ${v('claimantSub')} فرعی از ${v('claimantMain')} اصلی واقع در بخش ${v('block')} خریداری از آقای/خانم ${v('seller')} را گواهی نموده و مسئولیت حقوقی ناشی از احراز مالکیت را پذیرا می‌باشم.</p><p>سایر توضیحات: ${v('other7')}</p><p>۸- در رابطه با نحوه تصرفات متقاضی و نحوه خریداری از مالک رسمی و به منظور حصول اطمینان از مالکیت قانونی متقاضی مراتب از شهود و مطلعین محلی پرسش و به شرح زیر همگی تصرفات مالکانه و بلامعارض متقاضی را نزد اینجانب گواهی نمودند و امضاء شهود مورد تأیید اینجانب می‌باشد:</p><p>${witness(1)}</p><p>${witness(2)}</p><p>${witness(3)}</p><p>${witness(4)}</p><div class="official-sign"><div>نام کارشناسان منتخب<br><br>امضا و مهر</div><div>نام متقاضی<br><br>امضاء</div></div><div class="official-footer">صفحه ۳ از ۳</div></div>`
+ `<div class="official-page"><p>۷- با توجه به مراتب فوق و با عنایت به بررسی‌های بعمل آمده و ملاحظه مدارک مالکیت متقاضی و بررسی سوابق ثبتی، تصرفات بلامعارض متقاضی آقای/خانم ${applicant} در قسمتی از/شامل ${reportVal('claimantType')==='زمین مزروعی'?'یک قطعه زمین مزروعی':reportVal('claimantType')==='باغ'?'یک درب باغ':'یک باب ساختمان'} به مساحت عرصه: ${v('claimantArea')} مترمربع قطعه ${v('claimantPiece')} مفروز و مجزی شده از پلاک ${v('claimantSub')} فرعی از ${v('claimantMain')} اصلی واقع در بخش ${v('block')} خریداری از آقای/خانم ${v('seller')} را گواهی نموده و مسئولیت حقوقی ناشی از احراز مالکیت را پذیرا می‌باشم.</p><p>سایر توضیحات: ${v('other7')}</p><p>۸- در رابطه با نحوه تصرفات متقاضی و نحوه خریداری از مالک رسمی و به منظور حصول اطمینان از مالکیت قانونی متقاضی مراتب از شهود و مطلعین محلی پرسش و به شرح زیر همگی تصرفات مالکانه و بلامعارض متقاضی را نزد اینجانب گواهی نمودند و امضاء شهود مورد تأیید اینجانب می‌باشد:</p>${witness(1)}${witness(2)}${witness(3)}${witness(4)}<div class="official-sign"><div>نام کارشناسان منتخب<br><br>امضا و مهر</div><div>نام متقاضی<br><br>امضاء</div></div><div class="official-footer">صفحه ۳ از ۳</div></div>`
  ];
  const wrap=document.getElementById('labFullDraftWrap');const out=document.getElementById('labPrintReport');if(out)out.innerHTML=pages.join('');if(wrap)wrap.style.display='block';
 }
-function printExperimentalReport(){generateExperimentalReportPreview();setTimeout(()=>window.print(),150);}
-function saveExperimentalReportDraft(caseId){const c=state.cases.find(x=>String(x.id||x.referral_no||'')===String(caseId));const data={caseId:String(caseId),referral_no:c?.referral_no||'',applicant:c?.applicant||'',savedAt:new Date().toISOString()};document.querySelectorAll('#experimentalReportLab [data-report-field]').forEach(el=>data[el.dataset.reportField]=el.value.trim());try{localStorage.setItem(reportDraftKey(c||{id:caseId}),JSON.stringify(data));const el=document.getElementById('experimentalReportState');if(el)el.textContent='پیش‌نویس در همین مرورگر ذخیره شد؛ هنوز برای دبیر ارسال نشده است.';notify('پیش‌نویس گزارش در همین دستگاه ذخیره شد.');}catch(e){notify('ذخیره محلی انجام نشد: '+(e?.message||''));}}
+function printExperimentalReport(){
+ arsinNormalizeReportFields();
+ generateExperimentalReportPreview();
+ const source=document.getElementById('labPrintReport');
+ const pages=[...(source?.querySelectorAll('.official-page')||[])];
+ if(pages.length!==3){notify('گزارش سه‌صفحه‌ای کامل تولید نشد؛ تعداد صفحات: '+arsinPersianDigits(pages.length));return;}
+ if(typeof window.open!=='function'){notify('مرورگر امکان بازکردن صفحه چاپ مستقل را نمی‌دهد؛ Chrome را استفاده کنید.');return;}
+ /* Use a genuinely separate document. The old approach disabled every stylesheet
+    in the live app and relied on a hidden body child; Chrome mobile print preview
+    could then retain only the final witness page. */
+ const printRoot=document.createElement('div');
+ pages.forEach(page=>printRoot.appendChild(page.cloneNode(true)));
+ const walker=document.createTreeWalker(printRoot,NodeFilter.SHOW_TEXT);
+ let textNode;while((textNode=walker.nextNode()))textNode.nodeValue=arsinPersianDigits(textNode.nodeValue);
+ const html=`<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>گزارش کارشناسی - سه صفحه</title><style>
+ @page{size:A4 portrait;margin:0}
+ *{box-sizing:border-box}
+ html,body{margin:0!important;padding:0!important;width:210mm!important;background:#fff!important;color:#111!important;font-family:Tahoma,Arial,sans-serif!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+ body{direction:rtl!important;font-size:9.5px!important;line-height:1.45!important}
+ .official-page{display:block!important;position:relative!important;width:210mm!important;min-height:297mm!important;height:auto!important;margin:0!important;padding:8mm 11mm 10mm!important;background:#fff!important;color:#111!important;direction:rtl!important;text-align:justify!important;overflow:visible!important;break-inside:auto!important;page-break-inside:auto!important}
+ .official-page:not(:last-child){break-after:page!important;page-break-after:always!important}
+ .official-page:last-child{break-after:auto!important;page-break-after:auto!important}
+ .official-top{display:flex!important;justify-content:space-between!important;align-items:center!important;margin-bottom:4px!important;min-height:38px!important}
+ .official-seal{display:flex!important;align-items:center!important;gap:7px!important;font-weight:900!important;font-size:10px!important;text-align:center!important}
+ .official-seal img{display:block!important;width:35px!important;height:35px!important;object-fit:contain!important}
+ .official-meta{font-size:9px!important;line-height:1.4!important;text-align:left!important}
+ .official-center{text-align:center!important;line-height:1.45!important;margin:3px 0 6px!important}
+ p{margin:2.5px 0!important;line-height:1.45!important;orphans:2!important;widows:2!important}
+ .official-footer{position:absolute!important;bottom:3mm!important;left:0!important;right:0!important;text-align:center!important;font-size:8.5px!important}
+ .official-sign{display:flex!important;justify-content:space-between!important;margin-top:8px!important;text-align:center!important}
+ .witness-print-block{break-inside:avoid!important;page-break-inside:avoid!important;margin:2px 0 4px!important}
+ .witness-print-signature{display:flex!important;gap:9px!important;justify-content:flex-start!important;margin:2px 0 4px!important;direction:rtl!important}
+ .witness-sign-box,.witness-fingerprint-box{display:block!important;box-sizing:border-box!important;border:1px solid #555!important;height:13mm!important;width:43%!important;padding:3px 6px!important;text-align:center!important;font-size:8.5px!important}
+ .witness-sign-box b,.witness-fingerprint-box b{display:block!important;font-weight:700!important}
+ @media screen{body{background:#eee!important;padding-top:54px!important}.official-page{margin:8px auto!important;box-shadow:0 1px 5px #999!important}}
+ .print-toolbar{position:fixed!important;z-index:99999!important;top:0!important;left:0!important;right:0!important;height:46px!important;display:flex!important;align-items:center!important;justify-content:center!important;background:#123b65!important;padding:5px!important}
+ .print-toolbar button{border:0!important;border-radius:7px!important;background:#0b8f83!important;color:#fff!important;font:bold 15px Tahoma,Arial,sans-serif!important;padding:9px 28px!important;cursor:pointer!important}
+ @media print{.print-toolbar{display:none!important}body{padding-top:0!important}}
+ </style></head><body><div class="print-toolbar"><button type="button" onclick="window.print()">چاپ گزارش سه‌صفحه‌ای</button></div>${printRoot.innerHTML}</body></html>`;
+ const printWindow=window.open('about:blank','_blank');
+ if(!printWindow){notify('Chrome پنجره چاپ مستقل را مسدود کرد؛ اجازه بازشدن پنجره‌های جدید را برای این سایت فعال کنید.');return;}
+ try{
+  printWindow.document.open();
+  printWindow.document.write(html);
+  printWindow.document.close();
+  /* Do not invoke print() asynchronously: Android Chrome may reject it after
+     transient user activation expires. The user presses the print button in
+     the newly opened document, making the call directly gesture-initiated. */
+  printWindow.focus();
+ }catch(e){try{printWindow.close();}catch(_e){}notify('ساخت صفحه چاپ مستقل ناموفق بود: '+(e?.message||'خطای مرورگر'));}
+}
+function saveExperimentalReportDraft(caseId){arsinNormalizeReportFields();const c=state.cases.find(x=>String(x.id||x.referral_no||'')===String(caseId));const data={caseId:String(caseId),referral_no:c?.referral_no||'',applicant:c?.applicant||'',savedAt:new Date().toISOString()};document.querySelectorAll('#experimentalReportLab [data-report-field]').forEach(el=>data[el.dataset.reportField]=arsinPersianDigits(el.value.trim()));try{localStorage.setItem(reportDraftKey(c||{id:caseId}),JSON.stringify(data));const el=document.getElementById('experimentalReportState');if(el)el.textContent='پیش‌نویس در همین مرورگر ذخیره شد؛ هنوز برای دبیر ارسال نشده است.';notify('پیش‌نویس گزارش در همین دستگاه ذخیره شد.');}catch(e){notify('ذخیره محلی انجام نشد: '+(e?.message||''));}}
 async function submitExperimentalReportToDabir(caseId){
+ arsinNormalizeReportFields();
  const root=document.getElementById('experimentalReportLab');
  const c=state.cases.find(x=>String(x.id||x.referral_no||'')===String(caseId));
  if(!root||!c){notify('فرم یا پرونده پیدا نشد.');return;}
@@ -1200,10 +1265,10 @@ async function submitExperimentalReportToDabir(caseId){
    // Build the official three-page preview using the existing report template, then preserve its text separately.
    generateExperimentalReportPreview();
    const reportNode=document.getElementById('labPrintReport');
-   const reportText=String(reportNode?.innerText||reportNode?.textContent||'').trim();
+   const reportText=arsinPersianDigits(String(reportNode?.innerText||reportNode?.textContent||'').trim());
    if(!reportText)throw new Error('متن گزارش تولید نشد؛ ابتدا نمایش گزارش سه‌صفحه‌ای را بررسی کنید.');
    const reportData={};
-   root.querySelectorAll('[data-report-field]').forEach(el=>{reportData[el.dataset.reportField]=String(el.value??'').trim();});
+   root.querySelectorAll('[data-report-field]').forEach(el=>{reportData[el.dataset.reportField]=arsinPersianDigits(String(el.value??'').trim());});
    reportData.referral_no=String(c.referral_no||'');
    reportData.applicant=String(c.applicant||c.applicant_name||reportData.applicant||'');
    reportData.subject=String(c.subject||'');
